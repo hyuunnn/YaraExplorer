@@ -1,0 +1,1603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>954</width>
+    <height>736</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="Main">
+      <attribute name="title">
+       <string>Main</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>나눔바른고딕 Light</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Yara Rule</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="plainTextEdit_2">
+           <property name="plainText">
+            <string>import &quot;hash&quot;
+import &quot;pe&quot;
+
+rule xor_transform
+{
+    strings:
+        /*
+          AND       	EBX, 0x7F8                    		|81E3F8070000
+          SHL       	EBX, 0x14                     		|C1E314
+          SHR       	EDX, 8                        		|C1EA08
+      */
+      $xor_transform = {81 E? F8 07 00 00 C1 E? 14 C1 E? 08}
+    condition:
+        all of them
+}
+
+rule FE_Transform
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;3B43E1C70A7356793C43B7C889B86A39&quot;
+  strings:
+      /*
+          AND       	EDI, 0x1FE                    		|81E7FE010000
+          XOR       	BL, DL                        		|32DA
+          SHL       	ECX, 0x18                     		|C1E118
+      */
+      /*
+          AND       	ECX, 0x1FE                    		|81E1FE010000
+          SHL       	EAX, 0x18                     		|C1E018
+      */
+      $FE_Transform = {81 E? FE 01 00 00 [0-2] C1 E? 18}
+  condition:
+      all of them 
+}
+
+rule S_transform
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.4&quot;
+      date = &quot;2018-09-07&quot;
+      MD5 = &quot;052596A8380EDEEE8E211B504F44E133&quot;
+  strings:
+      $S_transform_50 = &quot;S^Ws2_32.dll&quot; nocase wide ascii
+      $S_transform_51 = &quot;S^WSAStartup&quot; nocase wide ascii
+      $S_transform_52 = &quot;S^inet_addr&quot; nocase wide ascii
+      $S_transform_53 = &quot;S^socket&quot; nocase wide ascii
+      $S_transform_54 = &quot;S^htons&quot; nocase wide ascii
+      $S_transform_55 = &quot;S^ntohs&quot; nocase wide ascii
+      $S_transform_56 = &quot;S^bind&quot; nocase wide ascii
+      $S_transform_57 = &quot;S^WSAIoctl&quot; nocase wide ascii
+      $S_transform_58 = &quot;S^setsockopt&quot; nocase wide ascii
+      $S_transform_59 = &quot;S^select&quot; nocase wide ascii
+      $S_transform_49 = &quot;S^UnmapViewOfFile&quot; nocase wide ascii
+      $S_transform_48 = &quot;S^MapViewOfFile&quot; nocase wide ascii
+      $S_transform_47 = &quot;S^MoveFileA&quot; nocase wide ascii
+      $S_transform_46 = &quot;S^GetWindowsDirectoryA&quot; nocase wide ascii
+      $S_transform_45 = &quot;S^TerminateThread&quot; nocase wide ascii
+      $S_transform_44 = &quot;S^TerminateProcess&quot; nocase wide ascii
+      $S_transform_43 = &quot;S^ReadFile&quot; nocase wide ascii
+      $S_transform_42 = &quot;S^CreateProcessA&quot; nocase wide ascii
+      $S_transform_41 = &quot;S^CreatePipe&quot; nocase wide ascii
+      $S_transform_40 = &quot;S^CreateDirectoryA&quot; nocase wide ascii
+      $S_transform_38 = &quot;S^GetSystemDirectoryA&quot; nocase wide ascii
+      $S_transform_39 = &quot;S^WinExec&quot; nocase wide ascii
+      $S_transform_32 = &quot;S^GetTempPathA&quot; nocase wide ascii
+      $S_transform_33 = &quot;S^GetLocalTime&quot; nocase wide ascii
+      $S_transform_30 = &quot;S^ReleaseSemaphore&quot; nocase wide ascii
+      $S_transform_31 = &quot;S^WaitForMultipleObjects&quot; nocase wide ascii
+      $S_transform_36 = &quot;S^GetFileTime&quot; nocase wide ascii
+      $S_transform_37 = &quot;S^SetFileTime&quot; nocase wide ascii
+      $S_transform_34 = &quot;S^WriteFile&quot; nocase wide ascii
+      $S_transform_35 = &quot;S^GetFileAttributesA&quot; nocase wide ascii
+      $S_transform_29 = &quot;S^DeleteCriticalSection&quot; nocase wide ascii
+      $S_transform_28 = &quot;S^SetEvent&quot; nocase wide ascii
+      $S_transform_21 = &quot;S^EnterCriticalSection&quot; nocase wide ascii
+      $S_transform_20 = &quot;S^InitializeCriticalSection&quot; nocase wide ascii
+      $S_transform_23 = &quot;S^ExitThread&quot; nocase wide ascii
+      $S_transform_22 = &quot;S^LeaveCriticalSection&quot; nocase wide ascii
+      $S_transform_25 = &quot;S^GetLastError&quot; nocase wide ascii
+      $S_transform_24 = &quot;S^GetTickCount&quot; nocase wide ascii
+      $S_transform_27 = &quot;S^CreateEventA&quot; nocase wide ascii
+      $S_transform_26 = &quot;S^CreateSemaphoreA&quot; nocase wide ascii
+      $S_transform_14 = &quot;S^WaitForSingleObject&quot; nocase wide ascii
+      $S_transform_15 = &quot;S^ReleaseMutex&quot; nocase wide ascii
+      $S_transform_16 = &quot;S^UnlockFile&quot; nocase wide ascii
+      $S_transform_17 = &quot;S^CloseHandle&quot; nocase wide ascii
+      $S_transform_10 = &quot;S^CreateThread&quot; nocase wide ascii
+      $S_transform_11 = &quot;S^CreateFileA&quot; nocase wide ascii
+      $S_transform_12 = &quot;S^GetFileSize&quot; nocase wide ascii
+      $S_transform_13 = &quot;S^LockFile&quot; nocase wide ascii
+      $S_transform_18 = &quot;S^OpenFileMappingA&quot; nocase wide ascii
+      $S_transform_19 = &quot;S^CreateFileMappingA&quot; nocase wide ascii
+      $S_transform_98 = &quot;S^InternetSetCookieA&quot; nocase wide ascii
+      $S_transform_99 = &quot;S^InternetCrackUrlA&quot; nocase wide ascii
+      $S_transform_94 = &quot;S^InternetOpenUrlA&quot; nocase wide ascii
+      $S_transform_95 = &quot;S^InternetConnectA&quot; nocase wide ascii
+      $S_transform_96 = &quot;S^HttpOpenRequestA&quot; nocase wide ascii
+      $S_transform_97 = &quot;S^InternetCloseHandle&quot; nocase wide ascii
+      $S_transform_90 = &quot;S^ControlService&quot; nocase wide ascii
+      $S_transform_91 = &quot;S^CloseServiceHandle&quot; nocase wide ascii
+      $S_transform_92 = &quot;S^wininet.dll&quot; nocase wide ascii
+      $S_transform_93 = &quot;S^InternetOpenA&quot; nocase wide ascii
+      $S_transform_89 = &quot;S^QueryServiceStatus&quot; nocase wide ascii
+      $S_transform_88 = &quot;S^OpenServiceA&quot; nocase wide ascii
+      $S_transform_83 = &quot;S^CryptCreateHash&quot; nocase wide ascii
+      $S_transform_82 = &quot;S^CryptDecrypt&quot; nocase wide ascii
+      $S_transform_81 = &quot;S^CryptDestroyKey&quot; nocase wide ascii
+      $S_transform_80 = &quot;S^CryptEncrypt&quot; nocase wide ascii
+      $S_transform_87 = &quot;S^OpenSCManagerA&quot; nocase wide ascii
+      $S_transform_86 = &quot;S^CryptDeriveKey&quot; nocase wide ascii
+      $S_transform_85 = &quot;S^CryptDestroyHash&quot; nocase wide ascii
+      $S_transform_84 = &quot;S^CryptHashData&quot; nocase wide ascii
+      $S_transform_76 = &quot;S^RegEnumValueA&quot; nocase wide ascii
+      $S_transform_77 = &quot;S^CryptAcquireContextA&quot; nocase wide ascii
+      $S_transform_74 = &quot;S^RegDeleteValueA&quot; nocase wide ascii
+      $S_transform_75 = &quot;S^RegQueryInfoKeyA&quot; nocase wide ascii
+      $S_transform_72 = &quot;S^RegCreateKeyExA&quot; nocase wide ascii
+      $S_transform_73 = &quot;S^RegSetValueExA&quot; nocase wide ascii
+      $S_transform_70 = &quot;S^RegQueryValueExA&quot; nocase wide ascii
+      $S_transform_71 = &quot;S^RegCloseKey&quot; nocase wide ascii
+      $S_transform_78 = &quot;S^CryptImportKey&quot; nocase wide ascii
+      $S_transform_79 = &quot;S^CryptReleaseContext&quot; nocase wide ascii
+      $S_transform_101 = &quot;S^HttpSendRequestA&quot; nocase wide ascii
+      $S_transform_100 = &quot;S^InternetReadFile&quot; nocase wide ascii
+      $S_transform_103 = &quot;S^HttpAddRequestHeadersA&quot; nocase wide ascii
+      $S_transform_102 = &quot;S^HttpQueryInfoA&quot; nocase wide ascii
+      $S_transform_105 = &quot;S^InternetWriteFile&quot; nocase wide ascii
+      $S_transform_104 = &quot;S^HttpSendRequestExA&quot; nocase wide ascii
+      $S_transform_107 = &quot;S^DeleteUrlCacheEntry&quot; nocase wide ascii
+      $S_transform_106 = &quot;S^HttpEndRequestA&quot; nocase wide ascii
+      $S_transform_108 = &quot;S^InternetGetConnectedState&quot; nocase wide ascii
+      $S_transform_2 = &quot;S^GetProcessHeap&quot; nocase wide ascii
+      $S_transform_3 = &quot;S^HeapDestroy&quot; nocase wide ascii
+      $S_transform_0 = &quot;S^Kernel32.dll&quot; nocase wide ascii
+      $S_transform_1 = &quot;S^HeapCreate&quot; nocase wide ascii
+      $S_transform_6 = &quot;S^HeapFree&quot; nocase wide ascii
+      $S_transform_7 = &quot;S^GetModuleFileNameA&quot; nocase wide ascii
+      $S_transform_4 = &quot;S^HeapAlloc&quot; nocase wide ascii
+      $S_transform_5 = &quot;S^HeapReAlloc&quot; nocase wide ascii
+      $S_transform_8 = &quot;S^DeleteFileA&quot; nocase wide ascii
+      $S_transform_9 = &quot;S^CreateMutexA&quot; nocase wide ascii
+      $S_transform_65 = &quot;S^Iphlpapi.dll&quot; nocase wide ascii
+      $S_transform_64 = &quot;S^closesocket&quot; nocase wide ascii
+      $S_transform_67 = &quot;S^GetPerAdapterInfo&quot; nocase wide ascii
+      $S_transform_66 = &quot;S^GetAdaptersInfo&quot; nocase wide ascii
+      $S_transform_61 = &quot;S^recv&quot; nocase wide ascii
+      $S_transform_60 = &quot;S^connect&quot; nocase wide ascii
+      $S_transform_63 = &quot;S^sendto&quot; nocase wide ascii
+      $S_transform_62 = &quot;S^send&quot; nocase wide ascii
+      $S_transform_69 = &quot;S^RegOpenKeyExA&quot; nocase wide ascii
+      $S_transform_68 = &quot;S^Advapi32.dll&quot; nocase wide ascii
+  condition:
+  	  10 of them
+}
+
+rule joanap
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.4&quot;
+      date = &quot;2018-09-07&quot;
+      MD5 = &quot;7FE80CEE04003FED91C02E3A372F4B01&quot;
+  strings:
+      $joanap_2 = &quot;!dyp$u4MRk_Cb$uupI_1sv7Rvd23F7S&quot; nocase wide ascii
+      $joanap_3 = &quot;!9jHTSr_pCZ7BW1jZB9iDAGjHQishBK&quot; nocase wide ascii
+      $joanap_0 = &quot;!inIf3w25VNC8bRvXwRDapbCQMc62EtZPx9&quot; nocase wide ascii
+      $joanap_1 = &quot;!YYz0X1w_GTtD7BNP69mK5XnZWzlB9bKJe1&quot; nocase wide ascii
+      $joanap_6 = &quot;!xJkUIwOnZTHBmw_0uG4_48$&quot; nocase wide ascii
+      $joanap_7 = &quot;!0E1mfduUaneS8YLsMZ7&quot; nocase wide ascii
+      $joanap_4 = &quot;!6Y8iuaWgBu7$tK&quot; nocase wide ascii
+      $joanap_5 = &quot;!n0U76nGoNe2y03lVgOd4t7VDVp1GBXW&quot; nocase wide ascii
+      $joanap_8 = &quot;!TlPco4ikBlt6jNEtq1&quot; nocase wide ascii
+      $joanap_9 = &quot;!ctRHFEX5m9JnZdDfpK&quot; nocase wide ascii
+      $joanap_10 = &quot;!m2MBHjehQ7IK6uqIsejT&quot; nocase wide ascii
+      $joanap_11 = &quot;!6ro0EYkRiqFMphgymbcTsfJ60K&quot; nocase wide ascii
+      $joanap_12 = &quot;!GawD1UIQi6w8kjUgleSNGrXVwcY&quot; nocase wide ascii
+      $joanap_13 = &quot;!_2FAcHI224$A_q8gS0dK&quot; nocase wide ascii
+      $joanap_14 = &quot;!VWBeBxYx1nzrCkBLGQO&quot; nocase wide ascii
+      $joanap_15 = &quot;!uRa9t1tCDeS197CPt7I&quot; nocase wide ascii
+      $joanap_16 = &quot;!emCFgv7Xc8ItaVGN0bMf&quot; nocase wide ascii
+      $unique = &quot;iamsorry!@1234567&quot; nocase wide ascii
+  condition:
+      10 of ($joanap*) and $unique
+}
+
+rule fallchill
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.4&quot;
+      date = &quot;2018-09-07&quot;
+      MD5 = &quot;A119AE22A15B32C0EF9E19DDB26D6B66&quot;
+  strings:
+      $fallchill_95 = &quot;CsamtvSvierxvClmurt2W&quot; nocase wide ascii
+      $fallchill_94 = &quot;OkvmSCMamatviW&quot; nocase wide ascii
+      $fallchill_97 = &quot;DvovgvSvierxv&quot; nocase wide ascii
+      $fallchill_96 = &quot;RvtDvovgvVaofvW&quot; nocase wide ascii
+      $fallchill_91 = &quot;RvtSvgVaofvEcW&quot; nocase wide ascii
+      $fallchill_90 = &quot;RvtColhvKvb&quot; nocase wide ascii
+      $fallchill_93 = &quot;CivagvSvierxvW&quot; nocase wide ascii
+      $fallchill_92 = &quot;SgaigSvierxvW&quot; nocase wide ascii
+      $fallchill_99 = &quot;OkvmSvierxvW&quot; nocase wide ascii
+      $fallchill_98 = &quot;RvtDvovgvKvbW&quot; nocase wide ascii
+      $fallchill_19 = &quot;GvgTrxpClfmg&quot; nocase wide ascii
+      $fallchill_18 = &quot;WSACovamfk&quot; nocase wide ascii
+      $fallchill_15 = &quot;WSASgaigfk&quot; nocase wide ascii
+      $fallchill_14 = &quot;orhgvm&quot; nocase wide ascii
+      $fallchill_17 = &quot;ivxe&quot; nocase wide ascii
+      $fallchill_16 = &quot;hvghlxplkg&quot; nocase wide ascii
+      $fallchill_11 = &quot;tvgkvvimanv&quot; nocase wide ascii
+      $fallchill_10 = &quot;axxvkg&quot; nocase wide ascii
+      $fallchill_13 = &quot;hsfgwldm&quot; nocase wide ascii
+      $fallchill_12 = &quot;tvgslhgybmanv&quot; nocase wide ascii
+      $fallchill_68 = &quot;GvgEcrgClwvTsivaw&quot; nocase wide ascii
+      $fallchill_69 = &quot;LlawLryiaibW&quot; nocase wide ascii
+      $fallchill_60 = &quot;Pilxvhh32NvcgW&quot; nocase wide ascii
+      $fallchill_61 = &quot;WirgvFrov&quot; nocase wide ascii
+      $fallchill_62 = &quot;GvgMlwfovFrovNanvW&quot; nocase wide ascii
+      $fallchill_63 = &quot;WargFliMfogrkovOyqvxgh&quot; nocase wide ascii
+      $fallchill_64 = &quot;WargFliSrmtovOyqvxg&quot; nocase wide ascii
+      $fallchill_65 = &quot;LlxaoFivv&quot; nocase wide ascii
+      $fallchill_66 = &quot;TvinrmagvTsivaw&quot; nocase wide ascii
+      $fallchill_67 = &quot;GvgFrovTrnv&quot; nocase wide ascii
+      $fallchill_79 = &quot;FrmwFrihgFrovW&quot; nocase wide ascii
+      $fallchill_78 = &quot;LlxaoAoolx&quot; nocase wide ascii
+      $fallchill_73 = &quot;ColhvHamwov&quot; nocase wide ascii
+      $fallchill_72 = &quot;GvgTvnkFrovNanvW&quot; nocase wide ascii
+      $fallchill_71 = &quot;Pilxvhh32FrihgW&quot; nocase wide ascii
+      $fallchill_70 = &quot;DvovgvFrovW&quot; nocase wide ascii
+      $fallchill_77 = &quot;CivagvTsivaw&quot; nocase wide ascii
+      $fallchill_76 = &quot;RvawFrov&quot; nocase wide ascii
+      $fallchill_75 = &quot;GvgFrovSrzv&quot; nocase wide ascii
+      $fallchill_74 = &quot;GvgEcrgClwvPilxvhh&quot; nocase wide ascii
+      $fallchill_46 = &quot;GvgVvihrlmEcW&quot; nocase wide ascii
+      $fallchill_47 = &quot;UmnakVrvdOuFrov&quot; nocase wide ascii
+      $fallchill_44 = &quot;GvgLltrxaoDirevh&quot; nocase wide ascii
+      $fallchill_45 = &quot;SvgFrovTrnv&quot; nocase wide ascii
+      $fallchill_42 = &quot;SvgCfiivmgDrivxglibW&quot; nocase wide ascii
+      $fallchill_43 = &quot;GvgCfiivmgDrivxglibW&quot; nocase wide ascii
+      $fallchill_40 = &quot;CivagvFrovW&quot; nocase wide ascii
+      $fallchill_41 = &quot;OkvmPilxvhh&quot; nocase wide ascii
+      $fallchill_48 = &quot;GvgCfiivmgPilxvhh&quot; nocase wide ascii
+      $fallchill_49 = &quot;GvgVlofnvImulinagrlmW&quot; nocase wide ascii
+      $fallchill_108 = &quot;OkvmPilxvhhTlpvm&quot; nocase wide ascii
+      $fallchill_106 = &quot;ClmgiloSvierxv&quot; nocase wide ascii
+      $fallchill_107 = &quot;RvtOkvmKvbW&quot; nocase wide ascii
+      $fallchill_104 = &quot;ColhvSvierxvHamwov&quot; nocase wide ascii
+      $fallchill_105 = &quot;SvgSvierxvSgagfh&quot; nocase wide ascii
+      $fallchill_102 = &quot;LllpfkPirerovtvVaofvW&quot; nocase wide ascii
+      $fallchill_103 = &quot;AwqfhgTlpvmPirerovtvh&quot; nocase wide ascii
+      $fallchill_100 = &quot;LllpfkAxxlfmgSrwW&quot; nocase wide ascii
+      $fallchill_101 = &quot;GvgTlpvmImulinagrlm&quot; nocase wide ascii
+      $fallchill_51 = &quot;GvgLlxaoTrnv&quot; nocase wide ascii
+      $fallchill_50 = &quot;GvgSbhgvnDrivxglibW&quot; nocase wide ascii
+      $fallchill_53 = &quot;CivagvPilxvhhW&quot; nocase wide ascii
+      $fallchill_52 = &quot;GvgFrovAggiryfgvhW&quot; nocase wide ascii
+      $fallchill_55 = &quot;CivagvTllosvok32Smakhslg&quot; nocase wide ascii
+      $fallchill_54 = &quot;GvgTvnkPagsW&quot; nocase wide ascii
+      $fallchill_57 = &quot;RvawPilxvhhMvnlib&quot; nocase wide ascii
+      $fallchill_56 = &quot;SvgFrovPlrmgvi&quot; nocase wide ascii
+      $fallchill_59 = &quot;Sovvk&quot; nocase wide ascii
+      $fallchill_58 = &quot;MakVrvdOuFrov&quot; nocase wide ascii
+      $fallchill_24 = &quot;VrigfaoAoolxEc&quot; nocase wide ascii
+      $fallchill_25 = &quot;SvgLahgEiili&quot; nocase wide ascii
+      $fallchill_26 = &quot;GvgLahgEiili&quot; nocase wide ascii
+      $fallchill_27 = &quot;GvgDrhpFivvSkaxvEcW&quot; nocase wide ascii
+      $fallchill_20 = &quot;LlxpRvhlfixv&quot; nocase wide ascii
+      $fallchill_21 = &quot;LlawRvhlfixv&quot; nocase wide ascii
+      $fallchill_22 = &quot;FrmwRvhlfixvW&quot; nocase wide ascii
+      $fallchill_23 = &quot;CivagvRvnlgvTsivaw&quot; nocase wide ascii
+      $fallchill_28 = &quot;GvgDirevTbkvW&quot; nocase wide ascii
+      $fallchill_29 = &quot;VrigfaoQfvibEc&quot; nocase wide ascii
+      $fallchill_88 = &quot;RvtCivagvKvbW&quot; nocase wide ascii
+      $fallchill_89 = &quot;RvtrhgviSvierxvCgioHamwoviW&quot; nocase wide ascii
+      $fallchill_82 = &quot;GvgPilxvhhTrnvh&quot; nocase wide ascii
+      $fallchill_83 = &quot;GvgAwakgvihImul&quot; nocase wide ascii
+      $fallchill_80 = &quot;WrmEcvx&quot; nocase wide ascii
+      $fallchill_81 = &quot;Mlwfov32FrihgW&quot; nocase wide ascii
+      $fallchill_86 = &quot;RvtQfvibVaofvEcW&quot; nocase wide ascii
+      $fallchill_87 = &quot;RvtOkvmKvbEcW&quot; nocase wide ascii
+      $fallchill_84 = &quot;CivagvPilxvhhAhUhviW&quot; nocase wide ascii
+      $fallchill_85 = &quot;GvgUhviNanvW&quot; nocase wide ascii
+      $fallchill_1 = &quot;yrmw&quot; nocase wide ascii
+      $fallchill_0 = &quot;rmvg_awwi&quot; nocase wide ascii
+      $fallchill_3 = &quot;hvmw&quot; nocase wide ascii
+      $fallchill_2 = &quot;__WSAFDIhSvg&quot; nocase wide ascii
+      $fallchill_5 = &quot;sglmh&quot; nocase wide ascii
+      $fallchill_4 = &quot;hvovxg&quot; nocase wide ascii
+      $fallchill_7 = &quot;xolhvhlxpvg&quot; nocase wide ascii
+      $fallchill_6 = &quot;hlxpvg&quot; nocase wide ascii
+      $fallchill_9 = &quot;rlxgohlxpvg&quot; nocase wide ascii
+      $fallchill_8 = &quot;xlmmvxg&quot; nocase wide ascii
+      $fallchill_37 = &quot;VrigfaoPilgvxgEc&quot; nocase wide ascii
+      $fallchill_36 = &quot;WirgvPilxvhhMvnlib&quot; nocase wide ascii
+      $fallchill_35 = &quot;GvgClnkfgviNanvW&quot; nocase wide ascii
+      $fallchill_34 = &quot;FrmwNvcgFrovW&quot; nocase wide ascii
+      $fallchill_33 = &quot;GvgMlwfovHamwovW&quot; nocase wide ascii
+      $fallchill_32 = &quot;MlevFrovEcW&quot; nocase wide ascii
+      $fallchill_31 = &quot;FrmwColhv&quot; nocase wide ascii
+      $fallchill_30 = &quot;CivagvFrovMakkrmtW&quot; nocase wide ascii
+      $fallchill_39 = &quot;TvinrmagvPilxvhh&quot; nocase wide ascii
+      $fallchill_38 = &quot;FivvLryiaib&quot; nocase wide ascii
+  condition:
+      20 of ($fallchill*)
+}
+
+rule rifle_sub_string : sub_string
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.4&quot;
+      date = &quot;2018-09-08&quot;
+      MD5 = &quot;8BD8C367DFE5C418A771CA8BDCE6AC88&quot;
+  strings:
+      $rifle_sub_string_271 = &quot;EP-XI9P-UP&quot; nocase wide ascii
+      $rifle_sub_string_270 = &quot;LPHPUPI9TUTo-H8PoUTpl&quot; nocase wide ascii
+      $rifle_sub_string_273 = &quot;kT9Uw-HcHHpoWg&quot; nocase wide ascii
+      $rifle_sub_string_272 = &quot;EP-XLPvU9pG&quot; nocase wide ascii
+      $rifle_sub_string_275 = &quot;FPU6pnwHPE-lnHPO&quot; nocase wide ascii
+      $rifle_sub_string_274 = &quot;kT9Uw-HcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_277 = &quot;FPUI1Blhp&quot; nocase wide ascii
+      $rifle_sub_string_276 = &quot;FPU8UnE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_279 = &quot;8PU0THPCTSP&quot; nocase wide ascii
+      $rifle_sub_string_278 = &quot;Bva-n8U9Tld1U9O&quot; nocase wide ascii
+      $rifle_sub_string_363 = &quot;0TlnuPgU0THPO&quot; nocase wide ascii
+      $rifle_sub_string_362 = &quot;IpXG0THPO&quot; nocase wide ascii
+      $rifle_sub_string_361 = &quot;qPSp2PLT9PoUp9GO&quot; nocase wide ascii
+      $rifle_sub_string_360 = &quot;0Tln0T9vU0THPO&quot; nocase wide ascii
+      $rifle_sub_string_367 = &quot;FPU8GvUPSLT9PoUp9Gc&quot; nocase wide ascii
+      $rifle_sub_string_366 = &quot;BvOpryN19poPvv&quot; nocase wide ascii
+      $rifle_sub_string_378 = &quot;5WquWMKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_365 = &quot;FPUWl2T9plSPlUk-9T-jHPO&quot; nocase wide ascii
+      $rifle_sub_string_370 = &quot;bXPl19poPvv&quot; nocase wide ascii
+      $rifle_sub_string_371 = &quot;FPU0THP8T_PWg&quot; nocase wide ascii
+      $rifle_sub_string_372 = &quot;FPU0THP8T_P&quot; nocase wide ascii
+      $rifle_sub_string_364 = &quot;0TlnIHpvP&quot; nocase wide ascii
+      $rifle_sub_string_374 = &quot;CP9STl-UP19poPvv&quot; nocase wide ascii
+      $rifle_sub_string_375 = &quot;FPUCToRIpwlU&quot; nocase wide ascii
+      $rifle_sub_string_376 = &quot;AlS-XkTPrbh0THP&quot; nocase wide ascii
+      $rifle_sub_string_377 = &quot;I9P-UP0THP6-XXTldc&quot; nocase wide ascii
+      $rifle_sub_string_204 = &quot;O-TU0p96wHUTXHPbjePoUv&quot; nocase wide ascii
+      $rifle_sub_string_205 = &quot;FPUkP9vTplWgc&quot; nocase wide ascii
+      $rifle_sub_string_206 = &quot;FPUkP9vTplWgO&quot; nocase wide ascii
+      $rifle_sub_string_207 = &quot;FPUCTSPmplPBlhp9S-UTpl&quot; nocase wide ascii
+      $rifle_sub_string_200 = &quot;kP9ThGkP9vTplBlhpO&quot; nocase wide ascii
+      $rifle_sub_string_201 = &quot;kP98PUIplnTUTpl6-vR&quot; nocase wide ascii
+      $rifle_sub_string_202 = &quot;09PPMTj9-9GclnWgTUC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_203 = &quot;CP9STl-UPC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_208 = &quot;FPUWgTUIpnPC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_209 = &quot;FPUIw99PlULT9PoUp9GO&quot; nocase wide ascii
+      $rifle_sub_string_109 = &quot;8GvUPS1-9-SPUP9vBlhpc&quot; nocase wide ascii
+      $rifle_sub_string_108 = &quot;FPU0p9Pd9pwlnOTlnpr&quot; nocase wide ascii
+      $rifle_sub_string_107 = &quot;FPU8GvUPS6PU9Tov&quot; nocase wide ascii
+      $rifle_sub_string_106 = &quot;FPULI&quot; nocase wide ascii
+      $rifle_sub_string_105 = &quot;FPULPvRUpXOTlnpr&quot; nocase wide ascii
+      $rifle_sub_string_104 = &quot;FPUOTlnprBlhp&quot; nocase wide ascii
+      $rifle_sub_string_103 = &quot;qPHP-vPLI&quot; nocase wide ascii
+      $rifle_sub_string_102 = &quot;rvX9TlUhO&quot; nocase wide ascii
+      $rifle_sub_string_101 = &quot;FPUOTlnprC79P-n19poPvvBn&quot; nocase wide ascii
+      $rifle_sub_string_100 = &quot;L9-rCPgUc&quot; nocase wide ascii
+      $rifle_sub_string_40 = &quot;8U9PUo7aHU&quot; nocase wide ascii
+      $rifle_sub_string_248 = &quot;FPUIplvpHP6pnP&quot; nocase wide ascii
+      $rifle_sub_string_326 = &quot;O-TU0p98TldHPbjePoU&quot; nocase wide ascii
+      $rifle_sub_string_325 = &quot;8PU0THPcUU9TjwUPvO&quot; nocase wide ascii
+      $rifle_sub_string_324 = &quot;8PUM-vUW99p9&quot; nocase wide ascii
+      $rifle_sub_string_323 = &quot;kT9Uw-HzwP9GWg&quot; nocase wide ascii
+      $rifle_sub_string_44 = &quot;I9P-UPIpSX-UTjHPaTUS-X&quot; nocase wide ascii
+      $rifle_sub_string_321 = &quot;6pnwHPKf0T9vUO&quot; nocase wide ascii
+      $rifle_sub_string_320 = &quot;OTnPI7-9Cp6wHUTaGUP&quot; nocase wide ascii
+      $rifle_sub_string_240 = &quot;8HPPX&quot; nocase wide ascii
+      $rifle_sub_string_48 = &quot;8PUCPgUIpHp9&quot; nocase wide ascii
+      $rifle_sub_string_242 = &quot;IHpvPE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_243 = &quot;FPU6pnwHPE-lnHPc&quot; nocase wide ascii
+      $rifle_sub_string_244 = &quot;6-XkTPrbh0THP&quot; nocase wide ascii
+      $rifle_sub_string_245 = &quot;FPUMpo-HPBlhpc&quot; nocase wide ascii
+      $rifle_sub_string_329 = &quot;FPU8GvUPS1prP98U-Uwv&quot; nocase wide ascii
+      $rifle_sub_string_247 = &quot;FPU8U9TldCGXPc&quot; nocase wide ascii
+      $rifle_sub_string_221 = &quot;I9P-UPC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_143 = &quot;8PU8P92ToP8U-Uwv&quot; nocase wide ascii
+      $rifle_sub_string_142 = &quot;LwXHTo-UPCpRPlWg&quot; nocase wide ascii
+      $rifle_sub_string_141 = &quot;I7-ldP8P92ToPIplhTdfc&quot; nocase wide ascii
+      $rifle_sub_string_140 = &quot;bXPl8P92ToPc&quot; nocase wide ascii
+      $rifle_sub_string_147 = &quot;I9P-UP19poPvvcvAvP9O&quot; nocase wide ascii
+      $rifle_sub_string_146 = &quot;I9P-UP19poPvvcvAvP9c&quot; nocase wide ascii
+      $rifle_sub_string_145 = &quot;qPdTvUP98P92ToPIU9HE-lnHP9c&quot; nocase wide ascii
+      $rifle_sub_string_144 = &quot;qPdTvUP98P92ToPIU9HE-lnHP9O&quot; nocase wide ascii
+      $rifle_sub_string_149 = &quot;qPdWlwS5PGWgO&quot; nocase wide ascii
+      $rifle_sub_string_148 = &quot;Ipl2P9U8TnCp8U9Tld8Tnc&quot; nocase wide ascii
+      $rifle_sub_string_41 = &quot;8PHPoUbjePoU&quot; nocase wide ascii
+      $rifle_sub_string_249 = &quot;FPUIplvpHPI1&quot; nocase wide ascii
+      $rifle_sub_string_43 = &quot;I9P-UP1-HPUUP&quot; nocase wide ascii
+      $rifle_sub_string_42 = &quot;8PHPoU1-HPUUP&quot; nocase wide ascii
+      $rifle_sub_string_45 = &quot;I9P-UPIpSX-UTjHPLI&quot; nocase wide ascii
+      $rifle_sub_string_322 = &quot;6pnwHPKfuPgUO&quot; nocase wide ascii
+      $rifle_sub_string_47 = &quot;8PUaRIpHp9&quot; nocase wide ascii
+      $rifle_sub_string_46 = &quot;FPU8UpoRbjePoU&quot; nocase wide ascii
+      $rifle_sub_string_49 = &quot;0THHqdl&quot; nocase wide ascii
+      $rifle_sub_string_241 = &quot;BlTUT-HT_PI9TUTo-H8PoUTpl&quot; nocase wide ascii
+      $rifle_sub_string_246 = &quot;FPU8U9TldCGXPO&quot; nocase wide ascii
+      $rifle_sub_string_328 = &quot;FPUkpHwSPBlhp9S-UTplO&quot; nocase wide ascii
+      $rifle_sub_string_288 = &quot;FPU8GvUPSCTSP&quot; nocase wide ascii
+      $rifle_sub_string_289 = &quot;8GvUPSCTSPCp0THPCTSP&quot; nocase wide ascii
+      $rifle_sub_string_284 = &quot;FPU19T2-UP19phTHP8U9TldO&quot; nocase wide ascii
+      $rifle_sub_string_285 = &quot;6wHUTaGUPCpOTnPI7-9&quot; nocase wide ascii
+      $rifle_sub_string_286 = &quot;FPU0THPcUU9TjwUPvO&quot; nocase wide ascii
+      $rifle_sub_string_287 = &quot;HvU9oSXc&quot; nocase wide ascii
+      $rifle_sub_string_280 = &quot;FPUkpHwSPBlhp9S-UTplc&quot; nocase wide ascii
+      $rifle_sub_string_281 = &quot;HvU9oSXO&quot; nocase wide ascii
+      $rifle_sub_string_282 = &quot;HvU9oXGc&quot; nocase wide ascii
+      $rifle_sub_string_283 = &quot;HvU9o-Uc&quot; nocase wide ascii
+      $rifle_sub_string_369 = &quot;FPUIw99PlU19poPvvBn&quot; nocase wide ascii
+      $rifle_sub_string_368 = &quot;0Hwv70THPawhhP9v&quot; nocase wide ascii
+      $rifle_sub_string_89 = &quot;OTlEUUXO9TUPL-U-&quot; nocase wide ascii
+      $rifle_sub_string_88 = &quot;OTlEUUXbXPl&quot; nocase wide ascii
+      $rifle_sub_string_85 = &quot;OTlEUUXFPU19pgG0p9A9H&quot; nocase wide ascii
+      $rifle_sub_string_84 = &quot;OTlEUUXIpllPoU&quot; nocase wide ascii
+      $rifle_sub_string_87 = &quot;OTlEUUX8PUbXUTpl&quot; nocase wide ascii
+      $rifle_sub_string_86 = &quot;OTlEUUXcnnqP3wPvUEP-nP9v&quot; nocase wide ascii
+      $rifle_sub_string_81 = &quot;OTlEUUXzwP9GEP-nP9v&quot; nocase wide ascii
+      $rifle_sub_string_80 = &quot;OTlEUUXIHpvPE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_83 = &quot;OTlEUUX8PUCTSPpwUv&quot; nocase wide ascii
+      $rifle_sub_string_82 = &quot;OTlEUUXbXPlqP3wPvU&quot; nocase wide ascii
+      $rifle_sub_string_18 = &quot;7Uplv&quot; nocase wide ascii
+      $rifle_sub_string_19 = &quot;xxO8c0LBv8PU&quot; nocase wide ascii
+      $rifle_sub_string_12 = &quot;dPU7pvUjGl-SP&quot; nocase wide ascii
+      $rifle_sub_string_13 = &quot;lUp7H&quot; nocase wide ascii
+      $rifle_sub_string_10 = &quot;O8cIHP-lwX&quot; nocase wide ascii
+      $rifle_sub_string_11 = &quot;O8c8U-9UwX&quot; nocase wide ascii
+      $rifle_sub_string_16 = &quot;TpoUHvpoRPU&quot; nocase wide ascii
+      $rifle_sub_string_17 = &quot;vpoRPU&quot; nocase wide ascii
+      $rifle_sub_string_14 = &quot;oHpvPvpoRPU&quot; nocase wide ascii
+      $rifle_sub_string_15 = &quot;opllPoU&quot; nocase wide ascii
+      $rifle_sub_string_217 = &quot;FPU0THPcUU9TjwUPvc&quot; nocase wide ascii
+      $rifle_sub_string_216 = &quot;FPUCPSX1-U7O&quot; nocase wide ascii
+      $rifle_sub_string_215 = &quot;FPUCPSX0THPu-SPO&quot; nocase wide ascii
+      $rifle_sub_string_214 = &quot;FPU19poPvvCTSPv&quot; nocase wide ascii
+      $rifle_sub_string_213 = &quot;0THPCTSPCpMpo-H0THPCTSP&quot; nocase wide ascii
+      $rifle_sub_string_212 = &quot;FPUIpSXwUP9u-SPO&quot; nocase wide ascii
+      $rifle_sub_string_211 = &quot;FPUIpSXwUP9u-SPc&quot; nocase wide ascii
+      $rifle_sub_string_210 = &quot;8PUIw99PlULT9PoUp9GO&quot; nocase wide ascii
+      $rifle_sub_string_219 = &quot;I9P-UP19poPvvO&quot; nocase wide ascii
+      $rifle_sub_string_218 = &quot;FPUMpdTo-HL9T2Pv&quot; nocase wide ascii
+      $rifle_sub_string_138 = &quot;CpAlTopnP&quot; nocase wide ascii
+      $rifle_sub_string_139 = &quot;A8WqKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_373 = &quot;I9P-UP0THPO&quot; nocase wide ascii
+      $rifle_sub_string_132 = &quot;LTvX-Uo76Pvv-dPc&quot; nocase wide ascii
+      $rifle_sub_string_133 = &quot;C9-lvH-UP6Pvv-dP&quot; nocase wide ascii
+      $rifle_sub_string_130 = &quot;FPU5PGu-SPCPgUO&quot; nocase wide ascii
+      $rifle_sub_string_131 = &quot;Bl2-HTn-UPqPoU&quot; nocase wide ascii
+      $rifle_sub_string_136 = &quot;FPUIH-vvu-SPO&quot; nocase wide ascii
+      $rifle_sub_string_137 = &quot;WlwSI7THnOTlnprv&quot; nocase wide ascii
+      $rifle_sub_string_134 = &quot;1PPR6Pvv-dPc&quot; nocase wide ascii
+      $rifle_sub_string_135 = &quot;qPdTvUP9OTlnpr6Pvv-dPO&quot; nocase wide ascii
+      $rifle_sub_string_350 = &quot;Mpo-H09PP&quot; nocase wide ascii
+      $rifle_sub_string_312 = &quot;FPUMpld1-U7u-SPc&quot; nocase wide ascii
+      $rifle_sub_string_313 = &quot;8PU0THPcUU9TjwUPvc&quot; nocase wide ascii
+      $rifle_sub_string_259 = &quot;EP-X8T_P&quot; nocase wide ascii
+      $rifle_sub_string_258 = &quot;kT9Uw-HzwP9G&quot; nocase wide ascii
+      $rifle_sub_string_316 = &quot;kT9Uw-H09PPWg&quot; nocase wide ascii
+      $rifle_sub_string_317 = &quot;WgX-lnWl2T9plSPlU8U9Tldvc&quot; nocase wide ascii
+      $rifle_sub_string_314 = &quot;LPHPUP0THPc&quot; nocase wide ascii
+      $rifle_sub_string_315 = &quot;FPU8GvUPSCTSPcv0THPCTSP&quot; nocase wide ascii
+      $rifle_sub_string_253 = &quot;FPUWl2T9plSPlU8U9TldvO&quot; nocase wide ascii
+      $rifle_sub_string_252 = &quot;09PPWl2T9plSPlU8U9TldvO&quot; nocase wide ascii
+      $rifle_sub_string_318 = &quot;WgX-lnWl2T9plSPlU8U9TldvO&quot; nocase wide ascii
+      $rifle_sub_string_319 = &quot;FPU87p9U1-U7u-SPO&quot; nocase wide ascii
+      $rifle_sub_string_257 = &quot;8PUE-lnHPIpwlU&quot; nocase wide ascii
+      $rifle_sub_string_256 = &quot;FPU0THPCGXP&quot; nocase wide ascii
+      $rifle_sub_string_255 = &quot;FPU8U-9UwXBlhpc&quot; nocase wide ascii
+      $rifle_sub_string_254 = &quot;09PPWl2T9plSPlU8U9Tldvc&quot; nocase wide ascii
+      $rifle_sub_string_0 = &quot;TlAvP9cdPlU8U9Tld&quot; nocase wide ascii
+      $rifle_sub_string_1 = &quot;AqM6bu.LMM&quot; nocase wide ascii
+      $rifle_sub_string_2 = &quot;BlUP9lPUI9-oRA9HO&quot; nocase wide ascii
+      $rifle_sub_string_3 = &quot;BlUP9lPUI-lplTo-HT_PA9HO&quot; nocase wide ascii
+      $rifle_sub_string_4 = &quot;OBuBuWC.LMM&quot; nocase wide ascii
+      $rifle_sub_string_5 = &quot;TlPUx-nn9&quot; nocase wide ascii
+      $rifle_sub_string_6 = &quot;HTvUPl&quot; nocase wide ascii
+      $rifle_sub_string_7 = &quot;jTln&quot; nocase wide ascii
+      $rifle_sub_string_8 = &quot;-ooPXU&quot; nocase wide ascii
+      $rifle_sub_string_9 = &quot;TlPUxlUp-&quot; nocase wide ascii
+      $rifle_sub_string_23 = &quot;I9P-UPWl2T9plSPlUaHpoR&quot; nocase wide ascii
+      $rifle_sub_string_22 = &quot;LPvU9pGWl2T9plSPlUaHpoR&quot; nocase wide ascii
+      $rifle_sub_string_21 = &quot;O8fxKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_20 = &quot;vPHPoU&quot; nocase wide ascii
+      $rifle_sub_string_27 = &quot;OC8c1BKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_26 = &quot;OC8WlwSP9-UP8PvvTplvO&quot; nocase wide ascii
+      $rifle_sub_string_25 = &quot;OC809PP6PSp9G&quot; nocase wide ascii
+      $rifle_sub_string_24 = &quot;A8WqWuk.LMM&quot; nocase wide ascii
+      $rifle_sub_string_29 = &quot;B1EM1c1B.LMM&quot; nocase wide ascii
+      $rifle_sub_string_28 = &quot;FPUcn-XUP9vBlhp&quot; nocase wide ascii
+      $rifle_sub_string_351 = &quot;FPU6pnwHP0THPu-SPO&quot; nocase wide ascii
+      $rifle_sub_string_178 = &quot;MppRwX19T2THPdPk-HwPc&quot; nocase wide ascii
+      $rifle_sub_string_179 = &quot;bXPl19poPvvCpRPl&quot; nocase wide ascii
+      $rifle_sub_string_176 = &quot;qPdbXPl5PGWgO&quot; nocase wide ascii
+      $rifle_sub_string_177 = &quot;cnewvUCpRPl19T2THPdPv&quot; nocase wide ascii
+      $rifle_sub_string_174 = &quot;qPdIHpvP5PG&quot; nocase wide ascii
+      $rifle_sub_string_175 = &quot;qPdzwP9Gk-HwPWgO&quot; nocase wide ascii
+      $rifle_sub_string_172 = &quot;Ipl2P9U8U9Tld8Pow9TUGLPvo9TXUp9Cp8Pow9TUGLPvo9TXUp9c&quot; nocase wide ascii
+      $rifle_sub_string_173 = &quot;FPU8Pow9TUGLPvo9TXUp98-oH&quot; nocase wide ascii
+      $rifle_sub_string_170 = &quot;BlTUT-HT_P8Pow9TUGLPvo9TXUp9&quot; nocase wide ascii
+      $rifle_sub_string_171 = &quot;8PU8Pow9TUGLPvo9TXUp9L-oH&quot; nocase wide ascii
+      $rifle_sub_string_356 = &quot;WgTU19poPvv&quot; nocase wide ascii
+      $rifle_sub_string_357 = &quot;I9P-UP0THPc&quot; nocase wide ascii
+      $rifle_sub_string_354 = &quot;FPUL9T2PCGXPc&quot; nocase wide ascii
+      $rifle_sub_string_355 = &quot;FPUL9T2PCGXPO&quot; nocase wide ascii
+      $rifle_sub_string_352 = &quot;FPU6pnwHP0THPu-SPc&quot; nocase wide ascii
+      $rifle_sub_string_353 = &quot;qP-n0THP&quot; nocase wide ascii
+      $rifle_sub_string_94 = &quot;OTlEUUXFPUBW19pgGIplhTd0p9Iw99PlUAvP9&quot; nocase wide ascii
+      $rifle_sub_string_95 = &quot;OBuECC1.LMM&quot; nocase wide ascii
+      $rifle_sub_string_239 = &quot;WgTUC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_98 = &quot;B6cFWEM1.LMM&quot; nocase wide ascii
+      $rifle_sub_string_238 = &quot;WlUP9I9TUTo-H8PoUTpl&quot; nocase wide ascii
+      $rifle_sub_string_92 = &quot;OTlEUUXqPoPT2PqPvXplvP&quot; nocase wide ascii
+      $rifle_sub_string_93 = &quot;OTlEUUXqP-nL-U-&quot; nocase wide ascii
+      $rifle_sub_string_90 = &quot;OTlEUUXzwP9GbXUTpl&quot; nocase wide ascii
+      $rifle_sub_string_91 = &quot;OTlEUUX8PlnqP3wPvU&quot; nocase wide ascii
+      $rifle_sub_string_96 = &quot;Al6-XclnMp-n&quot; nocase wide ascii
+      $rifle_sub_string_97 = &quot;6-XclnMp-n&quot; nocase wide ascii
+      $rifle_sub_string_299 = &quot;FPU0THPCTSP&quot; nocase wide ascii
+      $rifle_sub_string_298 = &quot;FHpj-H09PP&quot; nocase wide ascii
+      $rifle_sub_string_297 = &quot;Mp-nMTj9-9GWgc&quot; nocase wide ascii
+      $rifle_sub_string_296 = &quot;FHpj-HcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_295 = &quot;LP2ToPBpIplU9pH&quot; nocase wide ascii
+      $rifle_sub_string_294 = &quot;kT9Uw-H09PP&quot; nocase wide ascii
+      $rifle_sub_string_293 = &quot;kT9Uw-H19pUPoUWg&quot; nocase wide ascii
+      $rifle_sub_string_292 = &quot;O9TUP19poPvv6PSp9G&quot; nocase wide ascii
+      $rifle_sub_string_291 = &quot;qP-n19poPvv6PSp9G&quot; nocase wide ascii
+      $rifle_sub_string_290 = &quot;I9P-UPqPSpUPC79P-n&quot; nocase wide ascii
+      $rifle_sub_string_358 = &quot;O9TUP0THP&quot; nocase wide ascii
+      $rifle_sub_string_99 = &quot;rvX9TlUhc&quot; nocase wide ascii
+      $rifle_sub_string_359 = &quot;I9P-UPLT9PoUp9GO&quot; nocase wide ascii
+      $rifle_sub_string_231 = &quot;CHv09PP&quot; nocase wide ascii
+      $rifle_sub_string_339 = &quot;FPU0THPBlhp9S-UTplaGE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_194 = &quot;WlwS19poPvv6pnwHPv&quot; nocase wide ascii
+      $rifle_sub_string_195 = &quot;FPU6pnwHP0THPu-SPWgO&quot; nocase wide ascii
+      $rifle_sub_string_196 = &quot;WlwSLP2ToPL9T2P9v&quot; nocase wide ascii
+      $rifle_sub_string_197 = &quot;FPULP2ToPL9T2P9a-vPu-SPO&quot; nocase wide ascii
+      $rifle_sub_string_190 = &quot;qPdzwP9Gk-HwPWgc&quot; nocase wide ascii
+      $rifle_sub_string_191 = &quot;qPdbXPl5PGc&quot; nocase wide ascii
+      $rifle_sub_string_192 = &quot;8PU8Pow9TUGLPvo9TXUp98-oH&quot; nocase wide ascii
+      $rifle_sub_string_193 = &quot;cLkc1BKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_198 = &quot;FPU6pnwHP0THPu-SPWgc&quot; nocase wide ascii
+      $rifle_sub_string_199 = &quot;18c1B.LMM&quot; nocase wide ascii
+      $rifle_sub_string_54 = &quot;FLBKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_69 = &quot;STgP9IHpvP&quot; nocase wide ascii
+      $rifle_sub_string_68 = &quot;STgP9FPULP2I-Xvc&quot; nocase wide ascii
+      $rifle_sub_string_67 = &quot;STgP9FPUuwSLP2v&quot; nocase wide ascii
+      $rifle_sub_string_66 = &quot;r-2PBlbXPl&quot; nocase wide ascii
+      $rifle_sub_string_65 = &quot;STgP9bXPl&quot; nocase wide ascii
+      $rifle_sub_string_64 = &quot;IqJ1CKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_63 = &quot;IP9U09PPIP9UThTo-UPIplUPgU&quot; nocase wide ascii
+      $rifle_sub_string_62 = &quot;I9GXUAlX9pUPoUL-U-&quot; nocase wide ascii
+      $rifle_sub_string_61 = &quot;bMWcII.LMM&quot; nocase wide ascii
+      $rifle_sub_string_60 = &quot;cooPvvTjHPI7THn9Pl&quot; nocase wide ascii
+      $rifle_sub_string_222 = &quot;LPHPUP0THPO&quot; nocase wide ascii
+      $rifle_sub_string_223 = &quot;FPU19poPvvEP-X&quot; nocase wide ascii
+      $rifle_sub_string_220 = &quot;I9P-UP19poPvvc&quot; nocase wide ascii
+      $rifle_sub_string_327 = &quot;Mp-nMTj9-9GO&quot; nocase wide ascii
+      $rifle_sub_string_226 = &quot;FPUIplvpHPbwUXwUI1&quot; nocase wide ascii
+      $rifle_sub_string_227 = &quot;O9TUPIplvpHPc&quot; nocase wide ascii
+      $rifle_sub_string_224 = &quot;8PUWlnbh0THP&quot; nocase wide ascii
+      $rifle_sub_string_225 = &quot;O9TUPIplvpHPO&quot; nocase wide ascii
+      $rifle_sub_string_228 = &quot;8PU8UnE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_229 = &quot;FHpj-HMpoR&quot; nocase wide ascii
+      $rifle_sub_string_125 = &quot;BvOTlnpr&quot; nocase wide ascii
+      $rifle_sub_string_124 = &quot;0TlnOTlnprWgO&quot; nocase wide ascii
+      $rifle_sub_string_127 = &quot;bXPlIHTXjp-9n&quot; nocase wide ascii
+      $rifle_sub_string_126 = &quot;WlwSOTlnprv&quot; nocase wide ascii
+      $rifle_sub_string_121 = &quot;FPUOTlnprCPgUc&quot; nocase wide ascii
+      $rifle_sub_string_120 = &quot;Mp-nBoplc&quot; nocase wide ascii
+      $rifle_sub_string_123 = &quot;8Pln6Pvv-dPCTSPpwUO&quot; nocase wide ascii
+      $rifle_sub_string_122 = &quot;FPUOTlnprCPgUO&quot; nocase wide ascii
+      $rifle_sub_string_129 = &quot;IHpvPIHTXjp-9n&quot; nocase wide ascii
+      $rifle_sub_string_128 = &quot;FPUIHTXjp-9nL-U-&quot; nocase wide ascii
+      $rifle_sub_string_266 = &quot;q-TvPWgoPXUTpl&quot; nocase wide ascii
+      $rifle_sub_string_267 = &quot;Al7-lnHPnWgoPXUTpl0THUP9&quot; nocase wide ascii
+      $rifle_sub_string_264 = &quot;EP-X09PP&quot; nocase wide ascii
+      $rifle_sub_string_265 = &quot;qUHAlrTln&quot; nocase wide ascii
+      $rifle_sub_string_262 = &quot;EP-XqPcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_263 = &quot;EP-XcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_260 = &quot;MI6-X8U9TldO&quot; nocase wide ascii
+      $rifle_sub_string_261 = &quot;MI6-X8U9Tldc&quot; nocase wide ascii
+      $rifle_sub_string_268 = &quot;8PUAl7-lnHPnWgoPXUTpl0THUP9&quot; nocase wide ascii
+      $rifle_sub_string_269 = &quot;FPUIw99PlUC79P-nBn&quot; nocase wide ascii
+      $rifle_sub_string_309 = &quot;6p2P0THPWgc&quot; nocase wide ascii
+      $rifle_sub_string_308 = &quot;6p2P0THPO&quot; nocase wide ascii
+      $rifle_sub_string_305 = &quot;IpXG0THPc&quot; nocase wide ascii
+      $rifle_sub_string_304 = &quot;0TlnuPgU0THPc&quot; nocase wide ascii
+      $rifle_sub_string_307 = &quot;FHpj-HAlHpoR&quot; nocase wide ascii
+      $rifle_sub_string_306 = &quot;bXPl0THP6-XXTldc&quot; nocase wide ascii
+      $rifle_sub_string_301 = &quot;8PU0THP1pTlUP9Wg&quot; nocase wide ascii
+      $rifle_sub_string_300 = &quot;BvLPjwddP919PvPlU&quot; nocase wide ascii
+      $rifle_sub_string_303 = &quot;FPULTvR09PP8X-oPWgc&quot; nocase wide ascii
+      $rifle_sub_string_302 = &quot;8PU0THP1pTlUP9&quot; nocase wide ascii
+      $rifle_sub_string_30 = &quot;I9P-UP8U9P-SblEFHpj-H&quot; nocase wide ascii
+      $rifle_sub_string_31 = &quot;bMWKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_32 = &quot;8EFPU8XPoT-H0pHnP91-U7O&quot; nocase wide ascii
+      $rifle_sub_string_33 = &quot;8EWMMKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_34 = &quot;uPUcXTawhhP909PP&quot; nocase wide ascii
+      $rifle_sub_string_35 = &quot;uPUAvP9FPUBlhp&quot; nocase wide ascii
+      $rifle_sub_string_36 = &quot;uWCc1BKf.LMM&quot; nocase wide ascii
+      $rifle_sub_string_37 = &quot;LPHPUPLI&quot; nocase wide ascii
+      $rifle_sub_string_38 = &quot;LPHPUPbjePoU&quot; nocase wide ascii
+      $rifle_sub_string_39 = &quot;FPULBaTUv&quot; nocase wide ascii
+      $rifle_sub_string_169 = &quot;IHpvPW2PlUMpd&quot; nocase wide ascii
+      $rifle_sub_string_168 = &quot;bXPlW2PlUMpdc&quot; nocase wide ascii
+      $rifle_sub_string_161 = &quot;I9P-UP8P92ToPO&quot; nocase wide ascii
+      $rifle_sub_string_160 = &quot;I9P-UP8P92ToPc&quot; nocase wide ascii
+      $rifle_sub_string_163 = &quot;bXPl8I6-l-dP9c&quot; nocase wide ascii
+      $rifle_sub_string_162 = &quot;8U-9U8P92ToPc&quot; nocase wide ascii
+      $rifle_sub_string_165 = &quot;qP-nW2PlUMpdc&quot; nocase wide ascii
+      $rifle_sub_string_164 = &quot;IHpvP8P92ToPE-lnHP&quot; nocase wide ascii
+      $rifle_sub_string_167 = &quot;FPUbHnPvUW2PlUMpdqPop9n&quot; nocase wide ascii
+      $rifle_sub_string_166 = &quot;FPUuwSjP9bhW2PlUMpdqPop9nv&quot; nocase wide ascii
+      $rifle_sub_string_118 = &quot;qPdTvUP9IH-vvWgc&quot; nocase wide ascii
+      $rifle_sub_string_119 = &quot;Mp-nIw9vp9c&quot; nocase wide ascii
+      $rifle_sub_string_114 = &quot;LPhOTlnpr19poc&quot; nocase wide ascii
+      $rifle_sub_string_115 = &quot;AXn-UPOTlnpr&quot; nocase wide ascii
+      $rifle_sub_string_116 = &quot;87prOTlnpr&quot; nocase wide ascii
+      $rifle_sub_string_117 = &quot;I9P-UPOTlnprWgc&quot; nocase wide ascii
+      $rifle_sub_string_110 = &quot;6Pvv-dPapgc&quot; nocase wide ascii
+      $rifle_sub_string_111 = &quot;Wln1-TlU&quot; nocase wide ascii
+      $rifle_sub_string_112 = &quot;FPUIHTPlUqPoU&quot; nocase wide ascii
+      $rifle_sub_string_113 = &quot;aPdTl1-TlU&quot; nocase wide ascii
+      $rifle_sub_string_341 = &quot;0Tln0T9vU0THPc&quot; nocase wide ascii
+      $rifle_sub_string_340 = &quot;FPUWl2T9plSPlUk-9T-jHPc&quot; nocase wide ascii
+      $rifle_sub_string_343 = &quot;I9P-UPCppH7PHXKf8l-Xv7pU&quot; nocase wide ascii
+      $rifle_sub_string_342 = &quot;FPU19pocnn9Pvv&quot; nocase wide ascii
+      $rifle_sub_string_345 = &quot;6pnwHPKf0T9vU&quot; nocase wide ascii
+      $rifle_sub_string_344 = &quot;19poPvvKf0T9vU&quot; nocase wide ascii
+      $rifle_sub_string_347 = &quot;19poPvvKfuPgU&quot; nocase wide ascii
+      $rifle_sub_string_346 = &quot;6pnwHPKfuPgU&quot; nocase wide ascii
+      $rifle_sub_string_349 = &quot;Mpo-HcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_348 = &quot;FPUM-vUW99p9&quot; nocase wide ascii
+      $rifle_sub_string_55 = &quot;FPU0THPkP9vTplBlhpO&quot; nocase wide ascii
+      $rifle_sub_string_187 = &quot;MppRwXcoopwlU8TnO&quot; nocase wide ascii
+      $rifle_sub_string_186 = &quot;FPUAvP9u-SPc&quot; nocase wide ascii
+      $rifle_sub_string_185 = &quot;qPdMp-n5PGO&quot; nocase wide ascii
+      $rifle_sub_string_184 = &quot;qPdI9P-UP5PGO&quot; nocase wide ascii
+      $rifle_sub_string_183 = &quot;qPd8PUk-HwPWgc&quot; nocase wide ascii
+      $rifle_sub_string_182 = &quot;qPdAlMp-n5PGO&quot; nocase wide ascii
+      $rifle_sub_string_181 = &quot;qPdbXPl5PGO&quot; nocase wide ascii
+      $rifle_sub_string_180 = &quot;qPdWlwS5PGO&quot; nocase wide ascii
+      $rifle_sub_string_189 = &quot;qPdzwP9GBlhp5PGc&quot; nocase wide ascii
+      $rifle_sub_string_188 = &quot;qPdI9P-UP5PGc&quot; nocase wide ascii
+      $rifle_sub_string_78 = &quot;8U9qI79c&quot; nocase wide ascii
+      $rifle_sub_string_79 = &quot;8EMOc1B.LMM&quot; nocase wide ascii
+      $rifle_sub_string_74 = &quot;STgP9FPUIplU9pHLPU-THvc&quot; nocase wide ascii
+      $rifle_sub_string_75 = &quot;STgP98PUIplU9pHLPU-THv&quot; nocase wide ascii
+      $rifle_sub_string_76 = &quot;OBu66.LMM&quot; nocase wide ascii
+      $rifle_sub_string_77 = &quot;rlvX9TlUhO&quot; nocase wide ascii
+      $rifle_sub_string_70 = &quot;r-2PBlqPvPU&quot; nocase wide ascii
+      $rifle_sub_string_71 = &quot;r-2PBlIHpvP&quot; nocase wide ascii
+      $rifle_sub_string_72 = &quot;STgP9FPUMTlPBlhpc&quot; nocase wide ascii
+      $rifle_sub_string_73 = &quot;STgP9FPUMTlPIplU9pHvc&quot; nocase wide ascii
+      $rifle_sub_string_334 = &quot;FPUIw99PlU19poPvv&quot; nocase wide ascii
+      $rifle_sub_string_335 = &quot;09PPMTj9-9G&quot; nocase wide ascii
+      $rifle_sub_string_336 = &quot;19poPvvKf0T9vUO&quot; nocase wide ascii
+      $rifle_sub_string_337 = &quot;19poPvvKfuPgUO&quot; nocase wide ascii
+      $rifle_sub_string_330 = &quot;FPU8GvUPSBlhp&quot; nocase wide ascii
+      $rifle_sub_string_331 = &quot;FHpj-H6PSp9G8U-UwvWg&quot; nocase wide ascii
+      $rifle_sub_string_332 = &quot;FPUMpo-HPBlhpO&quot; nocase wide ascii
+      $rifle_sub_string_333 = &quot;FPULTvR09PP8X-oPWgO&quot; nocase wide ascii
+      $rifle_sub_string_235 = &quot;FPUbW6I1&quot; nocase wide ascii
+      $rifle_sub_string_234 = &quot;Bvk-HTnIpnP1-dP&quot; nocase wide ascii
+      $rifle_sub_string_237 = &quot;MP-2PI9TUTo-H8PoUTpl&quot; nocase wide ascii
+      $rifle_sub_string_236 = &quot;FPUcI1&quot; nocase wide ascii
+      $rifle_sub_string_338 = &quot;Mp-nMTj9-9Gc&quot; nocase wide ascii
+      $rifle_sub_string_230 = &quot;CHv8PUk-HwP&quot; nocase wide ascii
+      $rifle_sub_string_233 = &quot;CHvFPUk-HwP&quot; nocase wide ascii
+      $rifle_sub_string_232 = &quot;CHvcHHpo&quot; nocase wide ascii
+      $rifle_sub_string_56 = &quot;FPU0THPkP9vTplBlhp8T_PO&quot; nocase wide ascii
+      $rifle_sub_string_57 = &quot;kP9zwP9Gk-HwPO&quot; nocase wide ascii
+      $rifle_sub_string_310 = &quot;FPUIpSS-lnMTlPc&quot; nocase wide ascii
+      $rifle_sub_string_311 = &quot;FPUIpSS-lnMTlPO&quot; nocase wide ascii
+      $rifle_sub_string_52 = &quot;8PULBaTUv&quot; nocase wide ascii
+      $rifle_sub_string_53 = &quot;I9P-UPLIc&quot; nocase wide ascii
+      $rifle_sub_string_50 = &quot;I9P-UP8pHTna9wv7&quot; nocase wide ascii
+      $rifle_sub_string_51 = &quot;I9P-UPqPoUqdl&quot; nocase wide ascii
+      $rifle_sub_string_150 = &quot;FPUAvP9u-SPO&quot; nocase wide ascii
+      $rifle_sub_string_151 = &quot;qPd8PUk-HwPWgO&quot; nocase wide ascii
+      $rifle_sub_string_152 = &quot;Ipl2P9U8TnCp8U9Tld8TnO&quot; nocase wide ascii
+      $rifle_sub_string_153 = &quot;FPUCpRPlBlhp9S-UTpl&quot; nocase wide ascii
+      $rifle_sub_string_154 = &quot;FPU8Tn8wjcwU7p9TUGIpwlU&quot; nocase wide ascii
+      $rifle_sub_string_155 = &quot;FPU8Tn8wjcwU7p9TUG&quot; nocase wide ascii
+      $rifle_sub_string_156 = &quot;qPdLPHPUPk-HwPc&quot; nocase wide ascii
+      $rifle_sub_string_157 = &quot;qPdWlwS5PGWgc&quot; nocase wide ascii
+      $rifle_sub_string_158 = &quot;qPdWlwSk-HwPc&quot; nocase wide ascii
+      $rifle_sub_string_159 = &quot;qPdbXPl5PGWgc&quot; nocase wide ascii
+      $rifle_sub_string_251 = &quot;zwP9G1P9hp9S-loPIpwlUP9&quot; nocase wide ascii
+      $rifle_sub_string_250 = &quot;BlTUT-HT_PI9TUTo-H8PoUTplcln8XTlIpwlU&quot; nocase wide ascii
+      $rifle_sub_string_58 = &quot;kWq8Bbu.LMM&quot; nocase wide ascii
+      $rifle_sub_string_59 = &quot;cooPvvTjHPbjePoU09pSOTlnpr&quot; nocase wide ascii
+      /*
+        mov     [ebp+var_44], 5867637Ah
+        mov     [ebp+var_40], 6B57536Ch
+        mov     [ebp+var_3C], 3431336Ah
+        mov     [ebp+var_38], 59617743h
+        mov     [ebp+var_34], 6879764Ch
+        mov     [ebp+var_30], 6F5F5530h
+        mov     [ebp+var_2C], 38485A64h
+        mov     [ebp+var_28], 4B65524Fh
+        mov     [ebp+var_24], 72494E69h
+        mov     [ebp+var_20], 324D4A2Dh
+        mov     [ebp+var_1C], 41513747h
+        mov     [ebp+var_18], 6D6E7078h
+        mov     [ebp+var_14], 71625645h
+        mov     [ebp+var_10], 75543550h
+        mov     [ebp+var_C], 73443942h
+        mov     [ebp+var_8], 74466636h
+      */
+      /*
+      $sub_string_key = {C7 45 ?? 7A 63 67 58 C7 45 ?? 6C 53 57 6B C7 45 
+                        ?? 6A 33 31 34 C7 45 ?? 43 77 61 59 C7 45 ?? 4C 
+                        76 79 68 C7 45 ?? 30 55 5F 6F C7 45 ?? 64 5A 48 
+                        38 C7 45 ?? 4F 52 65 4B C7 45 ?? 69 4E 49 72 C7 
+                        45 ?? 2D 4A 4D 32 C7 45 ?? 47 37 51 41 C7 45 ?? 
+                        78 70 6E 6D C7 45 ?? 45 56 62 71 C7 45 ?? 50 35 
+                        54 75 C7 45 ?? 42 39 44 73 C7 45 ?? 36 66 46 74}
+      */
+  condition:
+      10 of ($rifle*) /* and $sub_string_key */
+}
+
+rule ahnlab_andarat /* ghost RAT */
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;1590E1EC0CE053F58BC349B4A5A9E7AD&quot;
+  strings:
+      $test_5 = &quot;Y Failed!&quot; nocase wide ascii
+      $test_4 = &quot;X Failed!&quot; nocase wide ascii
+      $test_3 = &quot;%s_%s&quot; nocase wide ascii
+      $test_2 = &quot;%s&quot; nocase wide ascii
+      $test_1 = &quot;Execute Success!&quot; nocase wide ascii
+      $test_0 = &quot;do not Execute!&quot; nocase wide ascii
+  condition:
+      4 of them
+}
+
+rule ahnlab_bmbot
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;EE5D1522845628A2F7B3A4E568F0989D&quot;
+  strings:
+      $test_7 = &quot;Upload:No path&quot; nocase wide ascii
+      $test_6 = &quot;upload &quot; nocase wide ascii
+      $test_5 = &quot;Download fail&quot; nocase wide ascii
+      $test_4 = &quot;Execution fail&quot; nocase wide ascii
+      $test_3 = &quot;Downloadexec success&quot; nocase wide ascii
+      $test_2 = &quot;hkInit.exe&quot; nocase wide ascii
+      $test_1 = &quot;DownloadExec:No URL&quot; nocase wide ascii
+      $test_0 = &quot;downloadexec &quot; nocase wide ascii
+      $test_9 = &quot;Upload Fail&quot; nocase wide ascii
+      $test_8 = &quot;Upload Success&quot; nocase wide ascii
+      $a = &quot;User-Agent:Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)&quot; nocase ascii wide
+  condition:
+      5 of them
+}
+
+rule ahnlab_gamedoor
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;804539F27FC2AE9322DD57B0FE854FF8&quot;
+  strings:
+      $ahnlab_gamedoor_5 = &quot;hangame\\korean\\baduki.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_4 = &quot;grandgameh\\poker\\poker.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_7 = &quot;hangame\\korean\\highlow2.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_6 = &quot;hangame\\korean\\poker7.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_1 = &quot;neowiz\\pmang\\common\\pmlauncher.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_0 = &quot;impactgame\\poker\\poker.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_3 = &quot;grandgamej\\poker\\poker.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_2 = &quot;grandgame\\poker\\poker.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_9 = &quot;hangame\\korean\\hoola3.exe&quot; nocase wide ascii
+      $ahnlab_gamedoor_8 = &quot;hangame\\korean\\laspoker.exe&quot; nocase wide ascii
+  condition:
+      3 of them
+}
+
+rule ahnlab_phandoor : phandoor
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;30D48797B308CC82336A411CAC34E977&quot;
+  strings:
+      $ahnlab_phandoor_0 = &quot;ttt23446654&quot; nocase wide ascii
+      $ahnlab_phandoor_1 = &quot;Command is [%s]&quot; nocase wide ascii
+      $ahnlab_phandoor_2 = &quot;No Server !&quot; nocase wide ascii
+      $ahnlab_phandoor_3 = &quot;Server found&quot; nocase wide ascii
+      $ahnlab_phandoor_4 = &quot;communication is started !&quot; nocase wide ascii
+      $ahnlab_phandoor_5 = &quot;Disconnected from Controller !&quot; nocase wide ascii
+  condition:
+      3 of them
+}
+
+rule ahnlab_rifdoor_NkDoor
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;AA7EFE70926B114403690F1A11A6229D (rifdoor)&quot;
+      MD5 = &quot;AA3FF3587F22E7E660765621185F8D8E (NkDoor)&quot;
+  strings:
+      $ahnlab_rifdoor_14 = &quot;_]@LJ\\\\JK/N[&quot; nocase wide ascii
+      $ahnlab_rifdoor_9 = &quot;K`xac`nk/|zllj||&quot; nocase wide ascii
+      $ahnlab_rifdoor_8 = &quot;K`xac`nk/infcz}j&quot; nocase wide ascii
+      $ahnlab_rifdoor_2 = &quot;MzfckHZFK&quot; nocase wide ascii
+      $ahnlab_rifdoor_1 = &quot;_}`kzl{Fk&quot; nocase wide ascii
+      $ahnlab_rifdoor_0 = &quot;\\`i{xn}jSBfl}`|`i{SXfak`x|/A[SLz}}ja{Yj}|f`a&quot; nocase wide ascii
+      $ahnlab_rifdoor_7 = &quot;+k`xac`nkjwjl&quot; nocase wide ascii
+      $ahnlab_rifdoor_6 = &quot;Fa{j}ync/f|/|j{/{`&quot; nocase wide ascii
+      $ahnlab_rifdoor_5 = &quot;+fa{j}ync&quot; nocase wide ascii
+      $ahnlab_rifdoor_4 = &quot;L5Sxfak`x|S|v|{jb&lt;=Slbk!jwj&quot; nocase wide ascii
+      $ahnlab_rifdoor_11 = &quot;Jwjlz{f`a/|zllj||&quot; nocase wide ascii
+      $ahnlab_rifdoor_10 = &quot;Jwjlz{f`a/infcz}j&quot; nocase wide ascii
+      $ahnlab_rifdoor_12 = &quot;+jwjl&quot; nocase wide ascii
+      $ahnlab_rifdoor_13 = &quot;+k`xac`nk&quot; nocase wide ascii
+
+      $ahnlab_NkDoor_1 = &quot;KjcnvZkn{j!jwj&quot; nocase wide ascii
+      $ahnlab_NkDoor_2 = &quot;Bfl}`|`i{&quot; nocase wide ascii
+      $ahnlab_NkDoor_3 = &quot;Xfak`x|/Zkn{j&quot; nocase wide ascii
+      $ahnlab_NkDoor_4 = &quot;\\`i{xn}jSBfl}`|`i{SXfak`x|SLz}}ja{Yj}|f`aS]za&quot; nocase wide ascii
+      $ahnlab_NkDoor_5 = &quot;Zkn{j/_`cflv&quot; nocase wide ascii
+  condition:
+      4 of them
+}
+
+rule ahnlab_nctst
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;8E79D88915C1E8978FA4F5C6BE1C9382&quot;
+  strings:
+      $ahnlab_nctst_0 = &quot;Current : %d year %d month %d day&quot; nocase wide ascii
+      $ahnlab_nctst_1 = &quot;Setting : %d year %d month %d day&quot; nocase wide ascii
+  condition:
+      all of them
+}
+
+rule ahnlab_nctst_582D70C0
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;56472258696067B7717F011DEA5716BD&quot;
+  strings:
+      $test_5 = &quot;del \&quot;%s\&quot;&quot; nocase wide ascii
+      $test_4 = &quot;attrib -h \&quot;%s\&quot;&quot; nocase wide ascii
+      $test_3 = &quot;if exist \&quot;%s\&quot; goto Repeat&quot; nocase wide ascii
+      $test_2 = &quot;del \&quot;%s\&quot;&quot; nocase wide ascii
+      $test_1 = &quot;sleep 1&quot; nocase wide ascii
+      $test_0 = &quot;:Repeat&quot; nocase wide ascii
+  condition:
+      all of them
+}
+
+rule ahnlab_NkDoor_Rifdoor
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;AA3FF3587F22E7E660765621185F8D8E&quot;
+  strings:
+      $ahnlab_NkDoor_4 = &quot;+fa{j}ync&quot; nocase wide ascii
+      $ahnlab_NkDoor_5 = &quot;Fa{j}ync/f|/|j{/{`&quot; nocase wide ascii
+      $ahnlab_NkDoor_6 = &quot;+k`xac`nkjwjl&quot; nocase wide ascii
+      $ahnlab_NkDoor_7 = &quot;K`xac`nk/infcz}j&quot; nocase wide ascii
+      $ahnlab_NkDoor_0 = &quot;\\`i{xn}jSBfl}`|`i{SXfak`x|/A[SLz}}ja{Yj}|f`a&quot; nocase wide ascii
+      $ahnlab_NkDoor_1 = &quot;_}`kzl{Fk&quot; nocase wide ascii
+      $ahnlab_NkDoor_2 = &quot;MzfckHZFK&quot; nocase wide ascii
+      $ahnlab_NkDoor_3 = &quot;L5Sxfak`x|S|v|{jb&lt;=Slbk!jwj&quot; nocase wide ascii
+      $ahnlab_NkDoor_8 = &quot;K`xac`nk/|zllj||&quot; nocase wide ascii
+      $ahnlab_NkDoor_9 = &quot;Jwjlz{f`a/infcz}j&quot; nocase wide ascii
+      $ahnlab_NkDoor_18 = &quot;KjcnvZkn{j!jwj&quot; nocase wide ascii
+      $ahnlab_NkDoor_16 = &quot;Bfl}`|`i{&quot; nocase wide ascii
+      $ahnlab_NkDoor_17 = &quot;Xfak`x|/Zkn{j&quot; nocase wide ascii
+      $ahnlab_NkDoor_14 = &quot;\\`i{xn}jSBfl}`|`i{SXfak`x|SLz}}ja{Yj}|f`aS]za&quot; nocase wide ascii
+      $ahnlab_NkDoor_15 = &quot;Zkn{j/_`cflv&quot; nocase wide ascii
+      $ahnlab_NkDoor_12 = &quot;+k`xac`nk&quot; nocase wide ascii
+      $ahnlab_NkDoor_13 = &quot;_]@LJ\\\\JK/N[&quot; nocase wide ascii
+      $ahnlab_NkDoor_10 = &quot;Jwjlz{f`a/|zllj||&quot; nocase wide ascii
+      $ahnlab_NkDoor_11 = &quot;+jwjl&quot; nocase wide ascii
+  condition:
+      4 of them
+}
+
+import &quot;hash&quot;
+import &quot;pe&quot;
+
+rule ahnlab_ratankba
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;1F7897B041A812F96F1925138EA38C46&quot;
+  strings:
+      $ahnlab_ratankba_13 = &quot;%s?action=What&amp;u=%I64u&quot; nocase wide ascii
+      $ahnlab_rantakba_14 = &quot;%s?action=BaseInfo&amp;u=%I64u&quot; nocase wide ascii
+      /* $ahnlab_ratankba_12 = &quot;https://www.eye-watch.in/design/dfbox/list.jsp&quot; nocase wide ascii */
+      $ahnlab_ratankba_11 = &quot;cmd.exe /c \&quot;netstat -ano | find \&quot;TCP\&quot; &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_10 = &quot;cmd.exe /c \&quot;tasklist /svc &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_9 = &quot;cmd.exe /c \&quot;reg query \&quot;HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\&quot; &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_8 = &quot;cmd.exe /c \&quot;net view /domain &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_7 = &quot;cmd.exe /c \&quot;net view &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_6 = &quot;cmd.exe /c \&quot;net user &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_5 = &quot;cmd.exe /c \&quot;query user &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_4 = &quot;cmd.exe /c \&quot;ping www.google.com &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_3 = &quot;cmd.exe /c \&quot;ipconfig -all &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_2 = &quot;cmd.exe /c \&quot;ver &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_1 = &quot;cmd.exe /c \&quot;whoami &gt;&gt; %s\&quot;&quot; nocase wide ascii
+      $ahnlab_ratankba_0 = &quot;cmd.exe /c \&quot;hostname &gt; %s\&quot;&quot; nocase wide ascii
+  condition:
+      7 of them
+}
+
+rule ahnlab_PyAgent
+{
+  meta:
+      tool = &quot;https://github.com/hy00un/Hyara&quot;
+      version = &quot;1.6&quot;
+      date = &quot;2018-11-09&quot;
+      MD5 = &quot;A597F7B62B2F491E75DDECE06BCD8068&quot;
+  strings:
+      $ahnlab_PyAgent_28 = &quot;Pyeongchang2018.com\\pcadmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_23 = &quot;vudckd1qaz@WSX&quot; nocase wide ascii
+      $ahnlab_PyAgent_22 = &quot;Pyeongchang2018.com\\pca.infradmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_21 = &quot;qwe123!@#&quot; nocase wide ascii
+      $ahnlab_PyAgent_20 = &quot;Pyeongchang2018.com\\jinsik.park&quot; nocase wide ascii
+      $ahnlab_PyAgent_27 = &quot;pc20181234!&quot; nocase wide ascii
+      $ahnlab_PyAgent_26 = &quot;Pyeongchang2018.com\\PCA.OMEGAdmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_25 = &quot;kas!QAZ@WSX#EDC&quot; nocase wide ascii
+      $ahnlab_PyAgent_24 = &quot;Pyeongchang2018.com\\PCA.KASAdmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_4 = &quot;Pyeongchang2018.com\\cert01&quot; nocase wide ascii
+      $ahnlab_PyAgent_5 = &quot;C462!qwer&quot; nocase wide ascii
+      $ahnlab_PyAgent_6 = &quot;g18.internal\\minadmev&quot; nocase wide ascii
+      $ahnlab_PyAgent_7 = &quot;BME.2010&quot; nocase wide ascii
+      $ahnlab_PyAgent_0 = &quot;Pyeongchang2018.com\\pcadmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_1 = &quot;vudckd2018!@&quot; nocase wide ascii
+      $ahnlab_PyAgent_2 = &quot;Pyeongchang2018.com\\PCA.GMSAdmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_3 = &quot;gms1qaz@WSX&quot; nocase wide ascii
+      $ahnlab_PyAgent_8 = &quot;g18.internal\\adm.adam.wollman&quot; nocase wide ascii
+      $ahnlab_PyAgent_9 = &quot;Temporal.1&quot; nocase wide ascii
+      $ahnlab_PyAgent_18 = &quot;Pyeongchang2018.com\\addc.siem&quot; nocase wide ascii
+      $ahnlab_PyAgent_19 = &quot;zse!@#123&quot; nocase wide ascii
+      $ahnlab_PyAgent_16 = &quot;Pyeongchang2018.com\\PCA.SMSAdmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_17 = &quot;vudckd2018!&quot; nocase wide ascii
+      $ahnlab_PyAgent_14 = &quot;Pyeongchang2018.com\\PCA.lyncadmintest&quot; nocase wide ascii
+      $ahnlab_PyAgent_15 = &quot;lync!QAZ@WSX#EDC&quot; nocase wide ascii
+      $ahnlab_PyAgent_12 = &quot;Pyeongchang2018.com\\PCA.lyncadmin&quot; nocase wide ascii
+      $ahnlab_PyAgent_13 = &quot;lync!QAZ@WSX#EDC&quot; nocase wide ascii
+      $ahnlab_PyAgent_10 = &quot;g18.internal\\adm.vadim.antonenko&quot; nocase wide ascii
+      $ahnlab_PyAgent_11 = &quot;G@h0km132&quot; nocase wide ascii
+  condition:
+      5 of them
+}</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>나눔바른고딕 Light</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Path Setting</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="text">
+            <string>C:\aaaa\aaaa\aaaaaa\aaaaa\</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Start</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="YaraExplorer">
+      <attribute name="title">
+       <string>YaraExplorer</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0" colspan="3">
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>나눔바른고딕 Light</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Detected File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" colspan="3">
+          <widget class="QLabel" name="label_6">
+           <property name="font">
+            <font>
+             <family>나눔바른고딕 Light</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Not Detected File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QTableWidget" name="tableWidget">
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>5</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>6</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>7</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>rulename</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>filename</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>filesize</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string>rulename1</string>
+            </property>
+           </item>
+           <item row="0" column="1">
+            <property name="text">
+             <string>filename1</string>
+            </property>
+           </item>
+           <item row="0" column="2">
+            <property name="text">
+             <string>filesize1</string>
+            </property>
+           </item>
+           <item row="1" column="0">
+            <property name="text">
+             <string>rulename2</string>
+            </property>
+           </item>
+           <item row="1" column="1">
+            <property name="text">
+             <string>filename2</string>
+            </property>
+           </item>
+           <item row="1" column="2">
+            <property name="text">
+             <string>filesize2</string>
+            </property>
+           </item>
+           <item row="2" column="0">
+            <property name="text">
+             <string>rulename3</string>
+            </property>
+           </item>
+           <item row="2" column="1">
+            <property name="text">
+             <string>filename3</string>
+            </property>
+           </item>
+           <item row="2" column="2">
+            <property name="text">
+             <string>filesize3</string>
+            </property>
+           </item>
+           <item row="3" column="0">
+            <property name="text">
+             <string>rulename4</string>
+            </property>
+           </item>
+           <item row="3" column="1">
+            <property name="text">
+             <string>filename4</string>
+            </property>
+           </item>
+           <item row="3" column="2">
+            <property name="text">
+             <string>filesize4</string>
+            </property>
+           </item>
+           <item row="4" column="0">
+            <property name="text">
+             <string>rulename5</string>
+            </property>
+           </item>
+           <item row="4" column="1">
+            <property name="text">
+             <string>filename5</string>
+            </property>
+           </item>
+           <item row="4" column="2">
+            <property name="text">
+             <string>filesize5</string>
+            </property>
+           </item>
+           <item row="5" column="0">
+            <property name="text">
+             <string>rulename6</string>
+            </property>
+           </item>
+           <item row="5" column="1">
+            <property name="text">
+             <string>filename6</string>
+            </property>
+           </item>
+           <item row="5" column="2">
+            <property name="text">
+             <string>filesize6</string>
+            </property>
+           </item>
+           <item row="6" column="0">
+            <property name="text">
+             <string>rulename7</string>
+            </property>
+           </item>
+           <item row="6" column="1">
+            <property name="text">
+             <string>filename7</string>
+            </property>
+           </item>
+           <item row="6" column="2">
+            <property name="text">
+             <string>filesize7</string>
+            </property>
+           </item>
+           <item row="7" column="0">
+            <property name="text">
+             <string>rulename8</string>
+            </property>
+           </item>
+           <item row="7" column="1">
+            <property name="text">
+             <string>filename8</string>
+            </property>
+           </item>
+           <item row="7" column="2">
+            <property name="text">
+             <string>filesize8</string>
+            </property>
+           </item>
+           <item row="8" column="0">
+            <property name="text">
+             <string>rulename9</string>
+            </property>
+           </item>
+           <item row="8" column="1">
+            <property name="text">
+             <string>filename9</string>
+            </property>
+           </item>
+           <item row="8" column="2">
+            <property name="text">
+             <string>filesize9</string>
+            </property>
+           </item>
+           <item row="9" column="0">
+            <property name="text">
+             <string>rulename10</string>
+            </property>
+           </item>
+           <item row="9" column="1">
+            <property name="text">
+             <string>filename10</string>
+            </property>
+           </item>
+           <item row="9" column="2">
+            <property name="text">
+             <string>filesize10</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="3" colspan="3">
+          <widget class="QTableWidget" name="tableWidget_2">
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>5</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>6</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>7</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>rulename</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>filename</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>filesize</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string>rulename1</string>
+            </property>
+           </item>
+           <item row="0" column="1">
+            <property name="text">
+             <string>filename1</string>
+            </property>
+           </item>
+           <item row="0" column="2">
+            <property name="text">
+             <string>filesize1</string>
+            </property>
+           </item>
+           <item row="1" column="0">
+            <property name="text">
+             <string>rulename2</string>
+            </property>
+           </item>
+           <item row="1" column="1">
+            <property name="text">
+             <string>filename2</string>
+            </property>
+           </item>
+           <item row="1" column="2">
+            <property name="text">
+             <string>filesize2</string>
+            </property>
+           </item>
+           <item row="2" column="0">
+            <property name="text">
+             <string>rulename3</string>
+            </property>
+           </item>
+           <item row="2" column="1">
+            <property name="text">
+             <string>filename3</string>
+            </property>
+           </item>
+           <item row="2" column="2">
+            <property name="text">
+             <string>filesize3</string>
+            </property>
+           </item>
+           <item row="3" column="0">
+            <property name="text">
+             <string>rulename4</string>
+            </property>
+           </item>
+           <item row="3" column="1">
+            <property name="text">
+             <string>filename4</string>
+            </property>
+           </item>
+           <item row="3" column="2">
+            <property name="text">
+             <string>filesize4</string>
+            </property>
+           </item>
+           <item row="4" column="0">
+            <property name="text">
+             <string>rulename5</string>
+            </property>
+           </item>
+           <item row="4" column="1">
+            <property name="text">
+             <string>filename5</string>
+            </property>
+           </item>
+           <item row="4" column="2">
+            <property name="text">
+             <string>filesize5</string>
+            </property>
+           </item>
+           <item row="5" column="0">
+            <property name="text">
+             <string>rulename6</string>
+            </property>
+           </item>
+           <item row="5" column="1">
+            <property name="text">
+             <string>filename6</string>
+            </property>
+           </item>
+           <item row="5" column="2">
+            <property name="text">
+             <string>filesize6</string>
+            </property>
+           </item>
+           <item row="6" column="0">
+            <property name="text">
+             <string>rulename7</string>
+            </property>
+           </item>
+           <item row="6" column="1">
+            <property name="text">
+             <string>filename7</string>
+            </property>
+           </item>
+           <item row="6" column="2">
+            <property name="text">
+             <string>filesize7</string>
+            </property>
+           </item>
+           <item row="7" column="0">
+            <property name="text">
+             <string>rulename8</string>
+            </property>
+           </item>
+           <item row="7" column="1">
+            <property name="text">
+             <string>filename8</string>
+            </property>
+           </item>
+           <item row="7" column="2">
+            <property name="text">
+             <string>filesize8</string>
+            </property>
+           </item>
+           <item row="8" column="0">
+            <property name="text">
+             <string>rulename9</string>
+            </property>
+           </item>
+           <item row="8" column="1">
+            <property name="text">
+             <string>filename9</string>
+            </property>
+           </item>
+           <item row="8" column="2">
+            <property name="text">
+             <string>filesize9</string>
+            </property>
+           </item>
+           <item row="9" column="0">
+            <property name="text">
+             <string>rulename10</string>
+            </property>
+           </item>
+           <item row="9" column="1">
+            <property name="text">
+             <string>filename10</string>
+            </property>
+           </item>
+           <item row="9" column="2">
+            <property name="text">
+             <string>filesize10</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>나눔고딕 Light</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Move File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="text">
+            <string>C:\asdasdasd</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Move</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <family>나눔고딕 Light</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Move File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="text">
+            <string>C:\asdasdasd</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="5">
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Move</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="3">
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>Save CSV</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3" colspan="3">
+          <widget class="QPushButton" name="pushButton_6">
+           <property name="text">
+            <string>Save CSV</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

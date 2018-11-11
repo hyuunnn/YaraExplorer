@@ -1146,11 +1146,6 @@ rule ahnlab_PyAgent
              <string>filename</string>
             </property>
            </column>
-           <column>
-            <property name="text">
-             <string>filesize</string>
-            </property>
-           </column>
            <item row="0" column="0">
             <property name="text">
              <string>rulename1</string>
@@ -1159,11 +1154,6 @@ rule ahnlab_PyAgent
            <item row="0" column="1">
             <property name="text">
              <string>filename1</string>
-            </property>
-           </item>
-           <item row="0" column="2">
-            <property name="text">
-             <string>filesize1</string>
             </property>
            </item>
            <item row="1" column="0">
@@ -1176,11 +1166,6 @@ rule ahnlab_PyAgent
              <string>filename2</string>
             </property>
            </item>
-           <item row="1" column="2">
-            <property name="text">
-             <string>filesize2</string>
-            </property>
-           </item>
            <item row="2" column="0">
             <property name="text">
              <string>rulename3</string>
@@ -1189,11 +1174,6 @@ rule ahnlab_PyAgent
            <item row="2" column="1">
             <property name="text">
              <string>filename3</string>
-            </property>
-           </item>
-           <item row="2" column="2">
-            <property name="text">
-             <string>filesize3</string>
             </property>
            </item>
            <item row="3" column="0">
@@ -1206,11 +1186,6 @@ rule ahnlab_PyAgent
              <string>filename4</string>
             </property>
            </item>
-           <item row="3" column="2">
-            <property name="text">
-             <string>filesize4</string>
-            </property>
-           </item>
            <item row="4" column="0">
             <property name="text">
              <string>rulename5</string>
@@ -1219,11 +1194,6 @@ rule ahnlab_PyAgent
            <item row="4" column="1">
             <property name="text">
              <string>filename5</string>
-            </property>
-           </item>
-           <item row="4" column="2">
-            <property name="text">
-             <string>filesize5</string>
             </property>
            </item>
            <item row="5" column="0">
@@ -1236,11 +1206,6 @@ rule ahnlab_PyAgent
              <string>filename6</string>
             </property>
            </item>
-           <item row="5" column="2">
-            <property name="text">
-             <string>filesize6</string>
-            </property>
-           </item>
            <item row="6" column="0">
             <property name="text">
              <string>rulename7</string>
@@ -1249,11 +1214,6 @@ rule ahnlab_PyAgent
            <item row="6" column="1">
             <property name="text">
              <string>filename7</string>
-            </property>
-           </item>
-           <item row="6" column="2">
-            <property name="text">
-             <string>filesize7</string>
             </property>
            </item>
            <item row="7" column="0">
@@ -1266,11 +1226,6 @@ rule ahnlab_PyAgent
              <string>filename8</string>
             </property>
            </item>
-           <item row="7" column="2">
-            <property name="text">
-             <string>filesize8</string>
-            </property>
-           </item>
            <item row="8" column="0">
             <property name="text">
              <string>rulename9</string>
@@ -1281,11 +1236,6 @@ rule ahnlab_PyAgent
              <string>filename9</string>
             </property>
            </item>
-           <item row="8" column="2">
-            <property name="text">
-             <string>filesize9</string>
-            </property>
-           </item>
            <item row="9" column="0">
             <property name="text">
              <string>rulename10</string>
@@ -1294,11 +1244,6 @@ rule ahnlab_PyAgent
            <item row="9" column="1">
             <property name="text">
              <string>filename10</string>
-            </property>
-           </item>
-           <item row="9" column="2">
-            <property name="text">
-             <string>filesize10</string>
             </property>
            </item>
           </widget>
@@ -1357,167 +1302,57 @@ rule ahnlab_PyAgent
            </row>
            <column>
             <property name="text">
-             <string>rulename</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
              <string>filename</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>filesize</string>
             </property>
            </column>
            <item row="0" column="0">
             <property name="text">
-             <string>rulename1</string>
-            </property>
-           </item>
-           <item row="0" column="1">
-            <property name="text">
              <string>filename1</string>
-            </property>
-           </item>
-           <item row="0" column="2">
-            <property name="text">
-             <string>filesize1</string>
             </property>
            </item>
            <item row="1" column="0">
             <property name="text">
-             <string>rulename2</string>
-            </property>
-           </item>
-           <item row="1" column="1">
-            <property name="text">
              <string>filename2</string>
-            </property>
-           </item>
-           <item row="1" column="2">
-            <property name="text">
-             <string>filesize2</string>
             </property>
            </item>
            <item row="2" column="0">
             <property name="text">
-             <string>rulename3</string>
-            </property>
-           </item>
-           <item row="2" column="1">
-            <property name="text">
              <string>filename3</string>
-            </property>
-           </item>
-           <item row="2" column="2">
-            <property name="text">
-             <string>filesize3</string>
             </property>
            </item>
            <item row="3" column="0">
             <property name="text">
-             <string>rulename4</string>
-            </property>
-           </item>
-           <item row="3" column="1">
-            <property name="text">
              <string>filename4</string>
-            </property>
-           </item>
-           <item row="3" column="2">
-            <property name="text">
-             <string>filesize4</string>
             </property>
            </item>
            <item row="4" column="0">
             <property name="text">
-             <string>rulename5</string>
-            </property>
-           </item>
-           <item row="4" column="1">
-            <property name="text">
              <string>filename5</string>
-            </property>
-           </item>
-           <item row="4" column="2">
-            <property name="text">
-             <string>filesize5</string>
             </property>
            </item>
            <item row="5" column="0">
             <property name="text">
-             <string>rulename6</string>
-            </property>
-           </item>
-           <item row="5" column="1">
-            <property name="text">
              <string>filename6</string>
-            </property>
-           </item>
-           <item row="5" column="2">
-            <property name="text">
-             <string>filesize6</string>
             </property>
            </item>
            <item row="6" column="0">
             <property name="text">
-             <string>rulename7</string>
-            </property>
-           </item>
-           <item row="6" column="1">
-            <property name="text">
              <string>filename7</string>
-            </property>
-           </item>
-           <item row="6" column="2">
-            <property name="text">
-             <string>filesize7</string>
             </property>
            </item>
            <item row="7" column="0">
             <property name="text">
-             <string>rulename8</string>
-            </property>
-           </item>
-           <item row="7" column="1">
-            <property name="text">
              <string>filename8</string>
-            </property>
-           </item>
-           <item row="7" column="2">
-            <property name="text">
-             <string>filesize8</string>
             </property>
            </item>
            <item row="8" column="0">
             <property name="text">
-             <string>rulename9</string>
-            </property>
-           </item>
-           <item row="8" column="1">
-            <property name="text">
              <string>filename9</string>
-            </property>
-           </item>
-           <item row="8" column="2">
-            <property name="text">
-             <string>filesize9</string>
             </property>
            </item>
            <item row="9" column="0">
             <property name="text">
-             <string>rulename10</string>
-            </property>
-           </item>
-           <item row="9" column="1">
-            <property name="text">
              <string>filename10</string>
-            </property>
-           </item>
-           <item row="9" column="2">
-            <property name="text">
-             <string>filesize10</string>
             </property>
            </item>
           </widget>

@@ -77,12 +77,20 @@ class Ui_Dialog(object):
     def move_files_1(self):
         path = self.lineEdit.text()
 
+        if not os.path.isdir(path):
+            os.mkdir(path)
+            print("mkdir folder : {}".format(path))
+
         for (rulename, filename) in self.match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
         print("[*] Move Files Complete!!")
 
     def move_files_2(self):
         path = self.lineEdit_3.text()
+
+        if not os.path.isdir(path):
+            os.mkdir(path)
+            print("mkdir folder : {}".format(path))
 
         for filename in self.not_match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)

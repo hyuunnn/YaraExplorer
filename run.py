@@ -9,6 +9,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import yara
 import os
+import shutil
+import csv
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -70,6 +72,38 @@ class Ui_Dialog(object):
             item.setText(self._translate("Dialog", str(idx+1)))
             item = self.tableWidget_2.item(idx, 0)
             item.setText(self._translate("Dialog", filename))
+
+    def move_files_1(self):
+        path = self.lineEdit.text()
+
+        for (rulename, filename) in self.match_file:
+            shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+
+    def move_files_2(self):
+        path = self.lineEdit_3.text()
+
+        for filename in self.not_match_file:
+            shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+
+    def make_CSV_1(self):
+        f = open('result.csv', 'wb')
+        wr = csv.writer(f)
+        wr.writerow(["rulename", "filename"])
+
+        for (rulename, filename) in self.match_file:
+            wr.writerow([rulename, filename])
+
+        f.close()
+
+    def make_CSV_2(self):
+        f = open('result.csv', 'wb')
+        wr = csv.writer(f)
+        wr.writerow(["filename"])
+
+        for filename in self.not_match_file:
+            wr.writerow([filename])
+
+        f.close()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -160,6 +194,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.lineEdit, 2, 1, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.YaraExplorer)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.move_files_1)
         self.gridLayout.addWidget(self.pushButton_2, 2, 2, 1, 1)
         self.label_5 = QtWidgets.QLabel(self.YaraExplorer)
         font = QtGui.QFont()
@@ -173,12 +208,15 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.lineEdit_3, 2, 4, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.YaraExplorer)
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(self.move_files_2)
         self.gridLayout.addWidget(self.pushButton_3, 2, 5, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.YaraExplorer)
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.clicked.connect(self.make_CSV_1)
         self.gridLayout.addWidget(self.pushButton_4, 3, 0, 1, 3)
         self.pushButton_6 = QtWidgets.QPushButton(self.YaraExplorer)
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.clicked.connect(self.make_CSV_2)
         self.gridLayout.addWidget(self.pushButton_6, 3, 3, 1, 3)
         self.verticalLayout_4.addLayout(self.gridLayout)
         self.tabWidget.addTab(self.YaraExplorer, "")

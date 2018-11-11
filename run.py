@@ -72,18 +72,21 @@ class Ui_Dialog(object):
             item.setText(self._translate("Dialog", str(idx+1)))
             item = self.tableWidget_2.item(idx, 0)
             item.setText(self._translate("Dialog", filename))
+        print("[*] Yara Search Complete!!")
 
     def move_files_1(self):
         path = self.lineEdit.text()
 
         for (rulename, filename) in self.match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+        print("[*] Move Files Complete!!")
 
     def move_files_2(self):
         path = self.lineEdit_3.text()
 
         for filename in self.not_match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+        print("[*] Move Files Complete!!")
 
     def make_CSV_1(self):
         f = open('result.csv', 'wb')
@@ -94,6 +97,7 @@ class Ui_Dialog(object):
             wr.writerow([rulename, filename])
 
         f.close()
+        print("[*] Make CSV Complete!!")
 
     def make_CSV_2(self):
         f = open('result.csv', 'wb')
@@ -104,6 +108,7 @@ class Ui_Dialog(object):
             wr.writerow([filename])
 
         f.close()
+        print("[*] Make CSV Complete!!")
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")

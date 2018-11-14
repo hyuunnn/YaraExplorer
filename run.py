@@ -39,7 +39,11 @@ class Ui_Dialog(object):
                         self.not_match_file.append(filename)
 
                 except IOError: # Permission denied
+                    print("[*] Permission denied : {}".format(filename))
                     continue
+
+        self.tableWidget.setSortingEnabled(False)
+        self.tableWidget_2.setSortingEnabled(False)
 
         self.tableWidget.setRowCount(len(self.match_file))
         self.tableWidget.setColumnCount(2)
@@ -72,6 +76,10 @@ class Ui_Dialog(object):
             item.setText(self._translate("Dialog", str(idx+1)))
             item = self.tableWidget_2.item(idx, 0)
             item.setText(self._translate("Dialog", filename))
+
+        self.tableWidget.setSortingEnabled(True)
+        self.tableWidget_2.setSortingEnabled(True)
+
         print("[*] Yara Search Complete!!")
 
     def move_files_1(self):

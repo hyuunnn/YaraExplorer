@@ -87,7 +87,6 @@ class Ui_Dialog(object):
 
         if not os.path.isdir(path):
             os.mkdir(path)
-            print("mkdir folder : {}".format(path))
 
         for (rulename, filename) in self.match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
@@ -98,7 +97,6 @@ class Ui_Dialog(object):
 
         if not os.path.isdir(path):
             os.mkdir(path)
-            print("mkdir folder : {}".format(path))
 
         for filename in self.not_match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)

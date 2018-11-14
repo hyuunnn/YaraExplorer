@@ -39,7 +39,7 @@ class Ui_Dialog(object):
                         self.not_match_file.append(filename)
 
                 except IOError: # Permission denied
-                    print("[*] Permission denied : {}".format(filename))
+                    print("[*] Permission denied : " + filename)
                     continue
 
         self.tableWidget.setSortingEnabled(False)
@@ -86,6 +86,7 @@ class Ui_Dialog(object):
         path = self.lineEdit.text()
 
         if not os.path.isdir(path):
+            print("[*] mkdir : " + path)
             os.mkdir(path)
 
         for (rulename, filename) in self.match_file:
@@ -96,6 +97,7 @@ class Ui_Dialog(object):
         path = self.lineEdit_3.text()
 
         if not os.path.isdir(path):
+            print("[*] mkdir : " + path)
             os.mkdir(path)
 
         for filename in self.not_match_file:

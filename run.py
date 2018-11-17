@@ -13,6 +13,7 @@ import yara
 import os
 import shutil
 import csv
+import qdarkgraystyle
 
 class Ui_Dialog(object):
     def __init__(self):
@@ -24,72 +25,76 @@ class Ui_Dialog(object):
         self.not_match_file = []
 
         path = self.lineEdit_2.text()
-        rules = yara.compile(source=self.plainTextEdit_2.toPlainText())
 
-        for (path, dir, files) in os.walk(path):
-            for filename in files:
-                try:
-                    f = open(path + "\\" + filename, "rb")
-                    matches = rules.match(data=f.read())
-                    f.close()
+        try:
+            rules = yara.compile(source=self.plainTextEdit_2.toPlainText())
 
-                    if matches:
-                        rulename = [match.rule for match in matches]
-                        self.match_file.append([', '.join(rulename), filename])
+            for (path, dir, files) in os.walk(path):
+                for filename in files:
+                    try:
+                        f = open(path + "\\" + filename, "rb")
+                        matches = rules.match(data=f.read())
+                        f.close()
 
-                    else:
-                        self.not_match_file.append(filename)
+                        if matches:
+                            rulename = [match.rule for match in matches]
+                            self.match_file.append([', '.join(rulename), filename])
 
-                except IOError: # Permission denied
-                    print("[*] Permission denied : " + filename)
-                    continue
+                        else:
+                            self.not_match_file.append(filename)
 
-        self.tableWidget.setSortingEnabled(False)
-        self.tableWidget_2.setSortingEnabled(False)
+                    except IOError: # Permission denied
+                        print("[*] Permission denied : " + filename)
+                        continue
 
-        self.tableWidget.setRowCount(len(self.match_file))
-        self.tableWidget.setColumnCount(2)
+            self.tableWidget.setSortingEnabled(False)
+            self.tableWidget_2.setSortingEnabled(False)
 
-        for idx, (rulename, filename) in enumerate(self.match_file):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setVerticalHeaderItem(idx, item)
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setItem(idx, 0, item)
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setItem(idx, 1, item)
-            item = self.tableWidget.verticalHeaderItem(idx)
-            item.setText(self._translate("Dialog", str(idx+1)))
-            item = self.tableWidget.item(idx, 0)
-            item.setText(self._translate("Dialog", rulename))
-            item = self.tableWidget.item(idx, 1)
-            item.setText(self._translate("Dialog", filename))
+            self.tableWidget.setRowCount(len(self.match_file))
+            self.tableWidget.setColumnCount(2)
 
-        self.tableWidget_2.setRowCount(len(self.not_match_file))
-        self.tableWidget_2.setColumnCount(1)
+            for idx, (rulename, filename) in enumerate(self.match_file):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(idx, item)
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(idx, 0, item)
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(idx, 1, item)
+                item = self.tableWidget.verticalHeaderItem(idx)
+                item.setText(self._translate("Dialog", str(idx+1)))
+                item = self.tableWidget.item(idx, 0)
+                item.setText(self._translate("Dialog", rulename))
+                item = self.tableWidget.item(idx, 1)
+                item.setText(self._translate("Dialog", filename))
 
-        for idx, filename in enumerate(self.not_match_file):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget_2.setVerticalHeaderItem(idx, item)
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget_2.setItem(idx, 0, item)
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget_2.setItem(idx, 1, item)
-            item = self.tableWidget_2.verticalHeaderItem(idx)
-            item.setText(self._translate("Dialog", str(idx+1)))
-            item = self.tableWidget_2.item(idx, 0)
-            item.setText(self._translate("Dialog", filename))
+            self.tableWidget_2.setRowCount(len(self.not_match_file))
+            self.tableWidget_2.setColumnCount(1)
 
-        self.tableWidget.setSortingEnabled(True)
-        self.tableWidget_2.setSortingEnabled(True)
+            for idx, filename in enumerate(self.not_match_file):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_2.setVerticalHeaderItem(idx, item)
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_2.setItem(idx, 0, item)
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget_2.setItem(idx, 1, item)
+                item = self.tableWidget_2.verticalHeaderItem(idx)
+                item.setText(self._translate("Dialog", str(idx+1)))
+                item = self.tableWidget_2.item(idx, 0)
+                item.setText(self._translate("Dialog", filename))
 
-        print("[*] Yara Search Complete!!")
+            self.tableWidget.setSortingEnabled(True)
+            self.tableWidget_2.setSortingEnabled(True)
+
+            print("[*] Yara Search Complete!!")
+        except yara.SyntaxError as e:
+            print("[*] yara.SyntaxError -> {}".format(e))
 
     def move_files_1(self):
         path = self.lineEdit.text()
 
         if not os.path.isdir(path):
-            print("[*] mkdir : " + path)
             os.mkdir(path)
+            print("[*] mkdir : " + path)
 
         for (rulename, filename) in self.match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
@@ -99,8 +104,8 @@ class Ui_Dialog(object):
         path = self.lineEdit_3.text()
 
         if not os.path.isdir(path):
-            print("[*] mkdir : " + path)
             os.mkdir(path)
+            print("[*] mkdir : " + path)
 
         for filename in self.not_match_file:
             shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
@@ -322,6 +327,7 @@ class Ui_Dialog(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet(qdarkgraystyle.load_stylesheet())
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
     ui.setupUi(Dialog)

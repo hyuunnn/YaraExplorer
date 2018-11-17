@@ -134,12 +134,13 @@ class Ui_Dialog(object):
             "Open a Yara File",
             expanduser("~"),
             "Yara Rule Files(*.yar *.yara)")
-        
-        f = open(path[0],"r")
-        data = f.read()
-        f.close()
-
-        self.plainTextEdit_2.insertPlainText(data)
+        try:
+            f = open(path[0],"r")
+            data = f.read()
+            f.close()
+            self.plainTextEdit_2.insertPlainText(data)
+        except FileNotFoundError:
+            print("[*] FileNotFoundError (select_rule)")
 
     def select_path(self):
         path = QtWidgets.QFileDialog.getExistingDirectory(

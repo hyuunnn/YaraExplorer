@@ -10,4 +10,4 @@ Drag & Drop File
 
 PyQt Theme
 
-another tab option (Detected detailed information and Visualization..?)
+another tab option (Detailed Detection Results and Visualization..?)

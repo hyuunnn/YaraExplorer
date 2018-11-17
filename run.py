@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from os.path import expanduser
+
 import yara
 import os
 import shutil
@@ -126,6 +128,27 @@ class Ui_Dialog(object):
         f.close()
         print("[*] Make CSV Complete!!")
 
+    def select_rule(self):
+        path = QtWidgets.QFileDialog.getOpenFileName(
+            None,
+            "Open a Yara File",
+            expanduser("~"),
+            "Yara Rule Files(*.yar *.yara)")
+        
+        f = open(path[0],"r")
+        data = f.read()
+        f.close()
+
+        self.plainTextEdit_2.insertPlainText(data)
+
+    def select_path(self):
+        path = QtWidgets.QFileDialog.getExistingDirectory(
+            None,
+            "Open a folder",
+            expanduser("~"),
+            QtWidgets.QFileDialog.ShowDirsOnly)
+        self.lineEdit_2.setText(path)
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(954, 736)
@@ -149,6 +172,10 @@ class Ui_Dialog(object):
         self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.Main)
         self.plainTextEdit_2.setObjectName("plainTextEdit_2")
         self.verticalLayout.addWidget(self.plainTextEdit_2)
+        self.pushButton_5 = QtWidgets.QPushButton(self.Main)
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.clicked.connect(self.select_rule)
+        self.verticalLayout.addWidget(self.pushButton_5)
         self.label_4 = QtWidgets.QLabel(self.Main)
         font = QtGui.QFont()
         font.setFamily("나눔바른고딕 Light")
@@ -159,6 +186,10 @@ class Ui_Dialog(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(self.Main)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.verticalLayout.addWidget(self.lineEdit_2)
+        self.pushButton_7 = QtWidgets.QPushButton(self.Main)
+        self.pushButton_7.setObjectName("pushButton_7")
+        self.pushButton_7.clicked.connect(self.select_path)
+        self.verticalLayout.addWidget(self.pushButton_7)
         self.pushButton = QtWidgets.QPushButton(self.Main)
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(self.yara_search)
@@ -252,8 +283,10 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(self._translate("Dialog", "Dialog"))
         self.label_2.setText(self._translate("Dialog", "Yara Rule"))
         self.plainTextEdit_2.setPlainText(self._translate("Dialog", ""))
+        self.pushButton_5.setText(self._translate("Dialog", "Select Rule File"))
         self.label_4.setText(self._translate("Dialog", "Path Setting"))
         self.lineEdit_2.setText(self._translate("Dialog", ""))
+        self.pushButton_7.setText(self._translate("Dialog", "Select Path"))
         self.pushButton.setText(self._translate("Dialog", "Start"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Main), self._translate("Dialog", "Main"))
         self.label.setText(self._translate("Dialog", "Detected File"))

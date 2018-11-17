@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Main">
       <attribute name="title">
@@ -1021,6 +1021,13 @@ rule ahnlab_PyAgent
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton_5">
+           <property name="text">
+            <string>Select Rule File</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_4">
            <property name="font">
             <font>
@@ -1037,6 +1044,13 @@ rule ahnlab_PyAgent
           <widget class="QLineEdit" name="lineEdit_2">
            <property name="text">
             <string>C:\aaaa\aaaa\aaaaaa\aaaaa\</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_7">
+           <property name="text">
+            <string>Select Path</string>
            </property>
           </widget>
          </item>

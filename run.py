@@ -143,6 +143,7 @@ class Ui_Dialog(object):
             f = open(path[0],"r")
             data = f.read()
             f.close()
+            self.plainTextEdit_2.clear()
             self.plainTextEdit_2.insertPlainText(data)
         except FileNotFoundError:
             print("[*] FileNotFoundError (select_rule)")

@@ -289,7 +289,7 @@ class Ui_Dialog(object):
         self._translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(self._translate("Dialog", "Dialog"))
         self.label_2.setText(self._translate("Dialog", "Yara Rule"))
-        self.plainTextEdit_2.setPlainText(self._translate("Dialog", ""))
+        self.plainTextEdit_2.setPlainText(self._translate("Dialog", "// \"http://virustotal.github.io/yara/\"\nrule silent_banker : banker\n{\n    meta:\n        description = \"This is just an example\"\n        thread_level = 3\n        in_the_wild = true\n    strings:\n        $a = {6A 40 68 00 30 00 00 6A 14 8D 91}\n        $b = {8D 4D B0 2B C1 83 C0 27 99 6A 4E 59 F7 F9}\n        $c = \"UVODFRYSIHLNWPEJXQZAKCBGMT\"\n    condition:\n        $a or $b or $c\n}"))
         self.pushButton_5.setText(self._translate("Dialog", "Select Rule File"))
         self.label_4.setText(self._translate("Dialog", "Path Setting"))
         self.lineEdit_2.setText(self._translate("Dialog", ""))

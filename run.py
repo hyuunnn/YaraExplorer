@@ -37,8 +37,8 @@ class Ui_Dialog(object):
                         f.close()
 
                         if matches:
-                            rulename = [match.rule for match in matches]
-                            self.match_file.append([', '.join(rulename), filename])
+                            for match in matches:
+                                self.match_file.append([match.rule, filename])
 
                         else:
                             self.not_match_file.append(filename)

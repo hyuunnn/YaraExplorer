@@ -112,7 +112,7 @@ class Ui_Dialog(object):
         print("[*] Move Files Complete!!")
 
     def make_CSV_1(self):
-        f = open('result.csv', 'wb')
+        f = open('result.csv', 'w', encoding='utf-8', newline='')
         wr = csv.writer(f)
         wr.writerow(["rulename", "filename"])
 
@@ -123,7 +123,7 @@ class Ui_Dialog(object):
         print("[*] Make CSV Complete!!")
 
     def make_CSV_2(self):
-        f = open('result.csv', 'wb')
+        f = open('result.csv', 'w', encoding='utf-8', newline='')
         wr = csv.writer(f)
         wr.writerow(["filename"])
 

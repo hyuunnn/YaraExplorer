@@ -105,6 +105,8 @@ class Ui_Dialog(object):
             print("[*] Move Files Complete!!")
         except FileNotFoundError as e:
             print("[*] {}".format(e))
+        except shutil.Error as e:
+            print("[*] {}".format(e))
 
     def move_files_2(self):
         path = self.lineEdit_3.text()
@@ -121,28 +123,36 @@ class Ui_Dialog(object):
             print("[*] Move Files Complete!!")
         except FileNotFoundError as e:
             print("[*] {}".format(e))
+        except shutil.Error as e:
+            print("[*] {}".format(e))
 
     def make_CSV_1(self):
-        f = open('result.csv', 'w', encoding='utf-8', newline='')
-        wr = csv.writer(f)
-        wr.writerow(["rulename", "filename"])
+        try:
+            f = open('Detected_File.csv', 'w', encoding='utf-8', newline='')
+            wr = csv.writer(f)
+            wr.writerow(["rulename", "filename"])
 
-        for (rulename, filename) in self.match_file:
-            wr.writerow([rulename, filename])
+            for (rulename, filename) in self.match_file:
+                wr.writerow([rulename, filename])
 
-        f.close()
-        print("[*] Make CSV Complete!!")
+            f.close()
+            print("[*] Make CSV Complete!!")
+        except PermissionError as e:
+            print("[*] {}".format(e))
 
     def make_CSV_2(self):
-        f = open('result.csv', 'w', encoding='utf-8', newline='')
-        wr = csv.writer(f)
-        wr.writerow(["filename"])
+        try:
+            f = open('Not_Detected_File.csv', 'w', encoding='utf-8', newline='')
+            wr = csv.writer(f)
+            wr.writerow(["filename"])
 
-        for filename in self.not_match_file:
-            wr.writerow([filename])
+            for filename in self.not_match_file:
+                wr.writerow([filename])
 
-        f.close()
-        print("[*] Make CSV Complete!!")
+            f.close()
+            print("[*] Make CSV Complete!!")
+        except PermissionError as e:
+            print("[*] {}".format(e))
 
     def select_rule(self):
         path = QtWidgets.QFileDialog.getOpenFileName(

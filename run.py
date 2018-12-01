@@ -93,23 +93,34 @@ class Ui_Dialog(object):
         path = self.lineEdit.text()
 
         if not os.path.isdir(path):
-            os.mkdir(path)
-            print("[*] mkdir : " + path)
-
-        for (rulename, filename) in self.match_file:
-            shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
-        print("[*] Move Files Complete!!")
+            try:
+                os.mkdir(path)
+                print("[*] mkdir : " + path)
+            except FileNotFoundError as e:
+                print("[*] {}".format(e))
+        try:
+            move_files = list(set([i[1] for i in self.match_file]))
+            for filename in move_files:
+                shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+            print("[*] Move Files Complete!!")
+        except FileNotFoundError as e:
+            print("[*] {}".format(e))
 
     def move_files_2(self):
         path = self.lineEdit_3.text()
 
         if not os.path.isdir(path):
-            os.mkdir(path)
-            print("[*] mkdir : " + path)
-
-        for filename in self.not_match_file:
-            shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
-        print("[*] Move Files Complete!!")
+            try:
+                os.mkdir(path)
+                print("[*] mkdir : " + path)
+            except FileNotFoundError as e:
+                print("[*] {}".format(e))
+        try:
+            for filename in list(set(self.not_match_file)):
+                shutil.move(self.lineEdit_2.text() + "\\" + filename, path)
+            print("[*] Move Files Complete!!")
+        except FileNotFoundError as e:
+            print("[*] {}".format(e))
 
     def make_CSV_1(self):
         f = open('result.csv', 'w', encoding='utf-8', newline='')

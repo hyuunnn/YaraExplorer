@@ -12,6 +12,8 @@ pip install yara-python
 
 pip install qdarkgraystyle
 
+pip install graphviz
+
 ## TODO
 
 Drag & Drop File

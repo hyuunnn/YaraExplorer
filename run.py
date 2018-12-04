@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from os.path import expanduser
+from graphviz import Graph
 
 import yara
 import os
@@ -178,7 +179,20 @@ class Ui_Dialog(object):
         self.lineEdit_2.setText(path)
 
     def extract_graphviz(self):
-        pass
+        g = Graph('G', filename='process.gv', engine='sfdp')
+        g.attr(splines='false', overlap='false')
+        #g.attr(splines='true', overlap='false')
+
+        g.attr('node', shape='box')
+        for rulename, filename in self.match_file:
+            g.node(rulename, color='blue', style='filled', fontcolor="white")
+
+        g.attr('node', shape='plaintext')
+        for rulename, filename in self.match_file:
+            g.edge(rulename, filename)
+
+        print("[*] Extract Graphviz")
+        g.view()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")

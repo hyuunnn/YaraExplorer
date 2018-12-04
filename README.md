@@ -18,4 +18,4 @@ Drag & Drop File
 
 ~~PyQt Theme~~
 
-another tab option (Detailed Detection Results and Visualization..?)
+~~Simple Visualization (graphviz)~~

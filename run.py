@@ -177,6 +177,9 @@ class Ui_Dialog(object):
             QtWidgets.QFileDialog.ShowDirsOnly)
         self.lineEdit_2.setText(path)
 
+    def extract_graphviz(self):
+        pass
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(954, 736)
@@ -298,6 +301,10 @@ class Ui_Dialog(object):
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_6.clicked.connect(self.make_CSV_2)
         self.gridLayout.addWidget(self.pushButton_6, 3, 3, 1, 3)
+        self.pushButton_8 = QtWidgets.QPushButton(self.YaraExplorer)
+        self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton_8.clicked.connect(self.extract_graphviz)
+        self.gridLayout.addWidget(self.pushButton_8, 4, 0, 1, 6)
         self.verticalLayout_4.addLayout(self.gridLayout)
         self.tabWidget.addTab(self.YaraExplorer, "")
         self.verticalLayout_3.addWidget(self.tabWidget)
@@ -343,6 +350,7 @@ class Ui_Dialog(object):
         self.pushButton_3.setText(self._translate("Dialog", "Move"))
         self.pushButton_4.setText(self._translate("Dialog", "Save CSV"))
         self.pushButton_6.setText(self._translate("Dialog", "Save CSV"))
+        self.pushButton_8.setText(self._translate("Dialog", "Extract Graphviz"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.YaraExplorer), self._translate("Dialog", "YaraExplorer"))
 
 

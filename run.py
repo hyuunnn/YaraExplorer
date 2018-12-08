@@ -176,7 +176,9 @@ class Ui_Dialog(object):
             "Open a folder",
             expanduser("~"),
             QtWidgets.QFileDialog.ShowDirsOnly)
-        self.lineEdit_2.setText(path)
+
+        if path:
+            self.lineEdit_2.setText(path)
 
     def extract_graphviz(self):
         g = Graph('G', filename='process.gv', engine='sfdp')

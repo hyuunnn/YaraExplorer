@@ -20,10 +20,14 @@ class Ui_Dialog(object):
     def __init__(self):
         self.match_file = []
         self.not_match_file = []
+        self.detect_count = 0
+        self.not_detect_count = 0
 
     def yara_search(self):
         self.match_file = []
         self.not_match_file = []
+        self.detect_count = 0
+        self.not_detect_count = 0
 
         path = self.lineEdit_2.text()
 
@@ -40,9 +44,11 @@ class Ui_Dialog(object):
                         if matches:
                             for match in matches:
                                 self.match_file.append([match.rule, filename])
+                            self.detect_count += 1
 
                         else:
                             self.not_match_file.append(filename)
+                            self.not_detect_count += 1
 
                     except IOError: # Permission denied
                         print("[*] Permission denied : " + filename)
@@ -86,7 +92,10 @@ class Ui_Dialog(object):
             self.tableWidget.setSortingEnabled(True)
             self.tableWidget_2.setSortingEnabled(True)
 
+            self.label_7.setText(self._translate("Dialog", "Count : {}".format(self.detect_count)))
+            self.label_8.setText(self._translate("Dialog", "Count : {}".format(self.not_detect_count)))
             print("[*] Yara Search Complete!!")
+            
         except yara.SyntaxError as e:
             print("[*] yara.SyntaxError -> {}".format(e))
 
@@ -263,6 +272,14 @@ class Ui_Dialog(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 0, 3, 1, 3)
+        self.label_7 = QtWidgets.QLabel(self.YaraExplorer)
+        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout.addWidget(self.label_7, 0, 2, 1, 1)
+        self.label_8 = QtWidgets.QLabel(self.YaraExplorer)
+        self.label_8.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_8.setObjectName("label_8")
+        self.gridLayout.addWidget(self.label_8, 0, 5, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self.YaraExplorer)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(2)
@@ -367,6 +384,8 @@ class Ui_Dialog(object):
         self.pushButton_4.setText(self._translate("Dialog", "Save CSV"))
         self.pushButton_6.setText(self._translate("Dialog", "Save CSV"))
         self.pushButton_8.setText(self._translate("Dialog", "Extract Graphviz"))
+        self.label_7.setText(self._translate("Dialog", "Count : {}".format(self.detect_count)))
+        self.label_8.setText(self._translate("Dialog", "Count : {}".format(self.not_detect_count)))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.YaraExplorer), self._translate("Dialog", "YaraExplorer"))
 
 

@@ -14,6 +14,8 @@ pip install qdarkgraystyle
 
 pip install graphviz
 
+pip install matplotlib
+
 ## TODO
 
 Drag & Drop File

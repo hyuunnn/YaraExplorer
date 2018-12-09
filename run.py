@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from os.path import expanduser
 from graphviz import Graph
+from matplotlib import pyplot as plt
 
 import yara
 import os
@@ -205,6 +206,22 @@ class Ui_Dialog(object):
         print("[*] Extract Graphviz")
         g.view()
 
+    def extract_matplotlib(self):
+        data = {}
+        for rulename, filename in self.match_file:
+            try: data[rulename] += 1
+            except: data[rulename] = 1
+        
+        y = data.values()
+        x = range(len(y))
+        fig = plt.figure(figsize=(10,5))
+        plt.bar(x, y, align='center', width=0.5, color=(0.1, 0.1, 0.1, 0.1), edgecolor='blue')
+        plt.xticks(x, tuple(data.keys()))
+        plt.ylabel("Count")
+        #plt.setp(plt.xticks()[1], rotation=20, ha='right')
+        fig.autofmt_xdate()
+        plt.show()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(954, 736)
@@ -334,11 +351,15 @@ class Ui_Dialog(object):
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_6.clicked.connect(self.make_CSV_2)
         self.gridLayout.addWidget(self.pushButton_6, 3, 3, 1, 3)
+        self.verticalLayout_4.addLayout(self.gridLayout)
         self.pushButton_8 = QtWidgets.QPushButton(self.YaraExplorer)
         self.pushButton_8.setObjectName("pushButton_8")
         self.pushButton_8.clicked.connect(self.extract_graphviz)
-        self.gridLayout.addWidget(self.pushButton_8, 4, 0, 1, 6)
-        self.verticalLayout_4.addLayout(self.gridLayout)
+        self.verticalLayout_4.addWidget(self.pushButton_8)
+        self.pushButton_9 = QtWidgets.QPushButton(self.YaraExplorer)
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.pushButton_9.clicked.connect(self.extract_matplotlib)
+        self.verticalLayout_4.addWidget(self.pushButton_9)
         self.tabWidget.addTab(self.YaraExplorer, "")
         self.verticalLayout_3.addWidget(self.tabWidget)
 
@@ -384,6 +405,7 @@ class Ui_Dialog(object):
         self.pushButton_4.setText(self._translate("Dialog", "Save CSV"))
         self.pushButton_6.setText(self._translate("Dialog", "Save CSV"))
         self.pushButton_8.setText(self._translate("Dialog", "Extract Graphviz"))
+        self.pushButton_9.setText(self._translate("Dialog", "Extract Matplotlib"))
         self.label_7.setText(self._translate("Dialog", "Count : {}".format(self.detect_count)))
         self.label_8.setText(self._translate("Dialog", "Count : {}".format(self.not_detect_count)))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.YaraExplorer), self._translate("Dialog", "YaraExplorer"))
